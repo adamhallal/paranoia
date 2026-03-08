@@ -5,11 +5,32 @@ struct PackSelectionView: View {
     let players: [Player]
 
     @Query private var allPacks: [QuestionPack]
+    @Environment(StoreManager.self) private var storeManager
     @State private var selectedPackIDs: Set<UUID> = []
     @State private var gameSession: GameSession?
+    @State private var purchasePack: QuestionPack?
+    @State private var lastPurchasePack: QuestionPack?
+    @State private var showCreditsAlert = false
 
-    private var availablePacks: [QuestionPack] {
-        allPacks.filter { !$0.questions.isEmpty }
+    private static let premiumOrder = ["Spicy", "Party", "Couple"]
+
+    private var freePacks: [QuestionPack] {
+        allPacks.filter { !$0.isPremium && !$0.questions.isEmpty }
+    }
+
+    private var premiumPacks: [QuestionPack] {
+        allPacks.filter { $0.isPremium && !$0.questions.isEmpty }
+            .sorted { Self.premiumOrder.firstIndex(of: $0.name) ?? 99 < Self.premiumOrder.firstIndex(of: $1.name) ?? 99 }
+    }
+
+    private static func packDescription(for name: String) -> String {
+        switch name {
+        case "Starter": return "Same 5 demo questions every time — upgrade to a premium pack for more"
+        case "Spicy": return "Bold and daring questions to turn up the heat"
+        case "Party": return "Fun and wild questions perfect for any group"
+        case "Couple": return "Intimate questions for you and your partner"
+        default: return ""
+        }
     }
 
     private var canStart: Bool {
@@ -31,45 +52,25 @@ struct PackSelectionView: View {
 
                 ScrollView {
                     LazyVStack(spacing: 12) {
-                        ForEach(availablePacks) { pack in
-                            let isSelected = selectedPackIDs.contains(pack.id)
-                            Button {
-                                if isSelected {
-                                    selectedPackIDs.remove(pack.id)
-                                } else {
-                                    selectedPackIDs.insert(pack.id)
-                                }
-                            } label: {
-                                HStack {
-                                    VStack(alignment: .leading, spacing: 4) {
-                                        Text(pack.name)
-                                            .font(.headline)
-                                            .foregroundColor(.white)
-                                        Text("\(pack.questions.count) questions")
-                                            .font(.caption)
-                                            .foregroundColor(.gray)
-                                    }
+                        if !freePacks.isEmpty {
+                            sectionHeader("FREE")
+                            ForEach(freePacks) { pack in
+                                packRow(pack: pack, isFree: true)
+                            }
+                        }
 
-                                    Spacer()
-
-                                    Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
-                                        .foregroundColor(isSelected ? .purple : .gray)
-                                        .font(.title2)
-                                }
-                                .padding(16)
-                                .background(isSelected ? Color.purple.opacity(0.15) : Color.white.opacity(0.05))
-                                .clipShape(RoundedRectangle(cornerRadius: 12))
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 12)
-                                        .stroke(isSelected ? Color.purple : Color.clear, lineWidth: 2)
-                                )
+                        if !premiumPacks.isEmpty {
+                            sectionHeader("PREMIUM")
+                                .padding(.top, 8)
+                            ForEach(premiumPacks) { pack in
+                                packRow(pack: pack, isFree: false)
                             }
                         }
                     }
                     .padding(.horizontal, 24)
                 }
 
-                if availablePacks.isEmpty {
+                if freePacks.isEmpty && premiumPacks.isEmpty {
                     VStack(spacing: 8) {
                         Text("No question packs available")
                             .foregroundColor(.gray)
@@ -106,14 +107,133 @@ struct PackSelectionView: View {
         .navigationBarTitleDisplayMode(.inline)
         .fullScreenCover(item: $gameSession) { session in
             GameView(session: session)
+                .environment(storeManager)
+        }
+        .sheet(item: $purchasePack, onDismiss: {
+            if let pack = lastPurchasePack, let productID = pack.productID, storeManager.credits(for: productID) > 0 {
+                selectedPackIDs.insert(pack.id)
+            }
+            lastPurchasePack = nil
+        }) { pack in
+            PackPurchaseView(pack: pack)
+                .environment(storeManager)
+                .onAppear { lastPurchasePack = pack }
+        }
+        .alert("No Credits", isPresented: $showCreditsAlert) {
+            Button("OK") {}
+        } message: {
+            Text("You need to purchase a session for the selected premium pack(s) before playing.")
+        }
+    }
+
+    private func sectionHeader(_ title: String) -> some View {
+        HStack {
+            Text(title)
+                .font(.caption.weight(.bold))
+                .foregroundColor(.gray)
+            Spacer()
+        }
+    }
+
+    @ViewBuilder
+    private func packRow(pack: QuestionPack, isFree: Bool) -> some View {
+        let isSelected = selectedPackIDs.contains(pack.id)
+        let credits = pack.productID.map { storeManager.credits(for: $0) } ?? 0
+        let isLocked = pack.isPremium && credits == 0
+
+        Button {
+            if isLocked {
+                purchasePack = pack
+            } else if isSelected {
+                selectedPackIDs.remove(pack.id)
+            } else {
+                selectedPackIDs.insert(pack.id)
+            }
+        } label: {
+            HStack {
+                VStack(alignment: .leading, spacing: 4) {
+                    HStack(spacing: 6) {
+                        Text(pack.name)
+                            .font(.headline)
+                            .foregroundColor(.white)
+                        if pack.isPremium && credits > 0 {
+                            Text("\(credits) play\(credits == 1 ? "" : "s")")
+                                .font(.caption2.weight(.bold))
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 6)
+                                .padding(.vertical, 2)
+                                .background(Color.green.opacity(0.8))
+                                .clipShape(Capsule())
+                        }
+                    }
+                    if pack.isPremium {
+                        Text("10 random questions per session")
+                            .font(.caption)
+                            .foregroundColor(.gray)
+                    } else {
+                        Text("\(pack.questions.count) questions")
+                            .font(.caption)
+                            .foregroundColor(.gray)
+                    }
+                    Text(Self.packDescription(for: pack.name))
+                        .font(.caption2)
+                        .foregroundColor(.gray.opacity(0.7))
+                }
+
+                Spacer()
+
+                if isLocked {
+                    let product = pack.productID.flatMap { storeManager.product(for: $0) }
+                    HStack(spacing: 4) {
+                        Image(systemName: "lock.fill")
+                        Text(product?.displayPrice ?? "$2.99")
+                    }
+                    .font(.subheadline.weight(.bold))
+                    .foregroundColor(.purple)
+                } else {
+                    Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
+                        .foregroundColor(isSelected ? .purple : .gray)
+                        .font(.title2)
+                }
+            }
+            .padding(16)
+            .background(isLocked ? Color.white.opacity(0.03) : (isSelected ? Color.purple.opacity(0.15) : Color.white.opacity(0.05)))
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(isSelected ? Color.purple : Color.clear, lineWidth: 2)
+            )
         }
     }
 
     private func startGame() {
-        let selectedQuestions = allPacks
-            .filter { selectedPackIDs.contains($0.id) }
-            .flatMap { $0.questions }
+        let selectedPacks = allPacks.filter { selectedPackIDs.contains($0.id) }
 
-        gameSession = GameSession(players: players, questions: selectedQuestions)
+        // Check credits for premium packs
+        for pack in selectedPacks where pack.isPremium {
+            guard let productID = pack.productID, storeManager.credits(for: productID) > 0 else {
+                showCreditsAlert = true
+                return
+            }
+        }
+
+        // Consume credits for premium packs
+        for pack in selectedPacks where pack.isPremium {
+            if let productID = pack.productID {
+                storeManager.consumeCredit(for: productID)
+            }
+        }
+
+        // Build questions: 10 random for premium, all for free/custom
+        var allQuestions: [Question] = []
+        for pack in selectedPacks {
+            if pack.isPremium {
+                allQuestions.append(contentsOf: Array(pack.questions.shuffled().prefix(10)))
+            } else {
+                allQuestions.append(contentsOf: pack.questions)
+            }
+        }
+
+        gameSession = GameSession(players: players, questions: allQuestions)
     }
 }

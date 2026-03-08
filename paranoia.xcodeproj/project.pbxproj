@@ -23,6 +23,9 @@
 		AA000002000000000000003B /* PlayerSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000003B /* PlayerSetupView.swift */; };
 		AA000002000000000000003C /* QuestionPackManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000003C /* QuestionPackManagerView.swift */; };
 		AA000002000000000000003D /* RoundResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000003D /* RoundResultView.swift */; };
+		AA000002000000000000004A /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000004A /* StoreManager.swift */; };
+		AA000002000000000000004B /* PackPurchaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000004B /* PackPurchaseView.swift */; };
+		AA000002000000000000004D /* DemoQuestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000004D /* DemoQuestions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +46,10 @@
 		AA000001000000000000003B /* PlayerSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSetupView.swift; sourceTree = "<group>"; };
 		AA000001000000000000003C /* QuestionPackManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionPackManagerView.swift; sourceTree = "<group>"; };
 		AA000001000000000000003D /* RoundResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundResultView.swift; sourceTree = "<group>"; };
+		AA000001000000000000004A /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
+		AA000001000000000000004B /* PackPurchaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackPurchaseView.swift; sourceTree = "<group>"; };
+		AA000001000000000000004D /* DemoQuestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoQuestions.swift; sourceTree = "<group>"; };
+		AA000001000000000000004E /* ParanoiaProducts.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = ParanoiaProducts.storekit; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,7 +86,9 @@
 				AA000003000000000000000B /* Data */,
 				AA000003000000000000000C /* Models */,
 				AA000003000000000000000D /* Views */,
+				AA000003000000000000000F /* Store */,
 				AA000003000000000000000E /* Utilities */,
+				AA000003000000000000001A /* Configuration */,
 			);
 			path = paranoia;
 			sourceTree = "<group>";
@@ -88,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				AA000001000000000000001B /* DefaultQuestions.swift */,
+				AA000001000000000000004D /* DemoQuestions.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -125,6 +135,23 @@
 				AA000001000000000000002B /* HapticManager.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		AA000003000000000000001A /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				AA000001000000000000004E /* ParanoiaProducts.storekit */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		AA000003000000000000000F /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				AA000001000000000000004A /* StoreManager.swift */,
+				AA000001000000000000004B /* PackPurchaseView.swift */,
+			);
+			path = Store;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -211,6 +238,9 @@
 				AA000002000000000000003B /* PlayerSetupView.swift in Sources */,
 				AA000002000000000000003C /* QuestionPackManagerView.swift in Sources */,
 				AA000002000000000000003D /* RoundResultView.swift in Sources */,
+				AA000002000000000000004A /* StoreManager.swift in Sources */,
+				AA000002000000000000004B /* PackPurchaseView.swift in Sources */,
+				AA000002000000000000004D /* DemoQuestions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

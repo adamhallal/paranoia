@@ -5,7 +5,7 @@ A party game for iPhone built with SwiftUI. Based on the classic **Paranoia** dr
 ## How It Works
 
 1. **Gather your friends** (3+ players) and open the app
-2. **Pick question packs** — choose from pre-built packs or create your own
+2. **Pick question packs** — choose from the free Starter pack or purchase premium packs
 3. **Pass the phone** — the screen tells you who gets it next
 4. **Read the question** — only the person holding the phone sees it (e.g., *"Who is most likely to cry at a movie?"*)
 5. **Say a name out loud** — answer the question by saying someone's name for everyone to hear
@@ -24,11 +24,12 @@ A party game for iPhone built with SwiftUI. Based on the classic **Paranoia** dr
 - **Pass-the-phone multiplayer** — no wifi, no accounts, no friction
 - **Privacy screen** — prevents others from seeing the question during handoff
 - **Coin flip animation** — 3D rotation with haptic feedback
-- **3 pre-built question packs**:
-  - **Party** — lighthearted group fun (20 questions)
-  - **Spicy** — edgier, more personal (20 questions)
-  - **Chill** — low-stakes, wholesome (20 questions)
-- **Custom question packs** — create, edit, and save your own packs
+- **Question Packs**:
+  - **Starter** (Free) — 5 demo questions to get started
+  - **Spicy** ($2.99/session) — bold and daring questions to turn up the heat (10 random from 20)
+  - **Party** ($2.99/session) — fun and wild questions perfect for any group (10 random from 20)
+  - **Couple** ($2.99/session) — intimate questions for you and your partner (10 random from 20)
+- **In-App Purchases** — buy play sessions for premium packs via StoreKit 2
 - **Game summary** — end-of-game recap showing revealed vs. secret questions
 - **Dark mode UI** — purple/pink gradient theme designed for evening hangouts
 
@@ -38,6 +39,7 @@ A party game for iPhone built with SwiftUI. Based on the classic **Paranoia** dr
 |-----------|------------|
 | UI Framework | SwiftUI |
 | Persistence | SwiftData |
+| In-App Purchases | StoreKit 2 |
 | Target | iOS 17+ |
 | Language | Swift 5.9+ |
 | IDE | Xcode 15+ |
@@ -61,9 +63,15 @@ paranoia/
 │   ├── CoinFlipView.swift         # Animated coin flip
 │   ├── RoundResultView.swift      # Revealed/secret result screen
 │   ├── GameSummaryView.swift      # End-of-game recap
-│   └── QuestionPackManagerView.swift  # Create/edit custom packs
+│   └── QuestionPackManagerView.swift  # Browse & purchase packs
+├── Store/
+│   ├── StoreManager.swift         # StoreKit 2 purchase & credit management
+│   └── PackPurchaseView.swift     # Purchase sheet UI
 ├── Data/
-│   └── DefaultQuestions.swift     # Pre-built question packs
+│   ├── DefaultQuestions.swift     # Premium question packs
+│   └── DemoQuestions.swift        # Free Starter pack
+├── Configuration/
+│   └── ParanoiaProducts.storekit  # StoreKit testing config
 └── Utilities/
     └── HapticManager.swift        # Haptic feedback helpers
 ```
@@ -83,24 +91,11 @@ paranoia/
    cd paranoia
    ```
 
-2. Open Xcode and create a new iOS App project:
-   - **Product Name**: paranoia
-   - **Interface**: SwiftUI
-   - **Language**: Swift
-   - **Storage**: None (SwiftData is configured in code)
+2. Open `Paranoia.xcodeproj` in Xcode
 
-3. Replace the generated source files with the files from this repo's `paranoia/` directory
+3. Build and run on an iPhone simulator or device (iOS 17+) with **Cmd+R**
 
-4. Build and run on an iPhone simulator or device (iOS 17+)
-
-### Alternative: Quick Xcode Setup
-
-1. In Xcode: **File → New → Project → iOS → App**
-2. Save the `.xcodeproj` inside the cloned repo's `paranoia/` folder
-3. Drag all `.swift` files into the Xcode project navigator
-4. Hit **Cmd+R** to build and run
-
-## Game Flow Diagram
+## Game Flow
 
 ```
 Home Screen
@@ -134,34 +129,9 @@ Home Screen
     │
     └── Question Packs
             │
-            ├── View built-in packs
-            ├── Create custom pack
-            └── Edit/delete custom packs
+            ├── View available packs
+            └── Purchase premium packs
 ```
-
-## Customization
-
-### Adding New Question Packs
-
-Edit `Data/DefaultQuestions.swift` to add more built-in packs:
-
-```swift
-static func myPack() -> QuestionPack {
-    QuestionPack(name: "My Pack", questions: [
-        Question(text: "Who is most likely to...?"),
-        // Add more questions
-    ])
-}
-```
-
-Then add it to `allPacks()`:
-```swift
-static func allPacks() -> [QuestionPack] {
-    [partyPack(), spicyPack(), chillPack(), myPack()]
-}
-```
-
-Players can also create custom packs directly in the app — these are saved locally using SwiftData.
 
 ## License
 

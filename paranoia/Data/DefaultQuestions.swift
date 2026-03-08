@@ -2,7 +2,7 @@ import Foundation
 
 struct DefaultQuestions {
     static func allPacks() -> [QuestionPack] {
-        [partyPack(), spicyPack(), chillPack()]
+        [partyPack(), spicyPack(), couplePack()]
     }
 
     static func partyPack() -> QuestionPack {
@@ -27,7 +27,7 @@ struct DefaultQuestions {
             Question(text: "Who has the most questionable search history?"),
             Question(text: "Who would be most likely to befriend a celebrity?"),
             Question(text: "Who is secretly the most competitive?"),
-        ])
+        ], isPremium: true, productID: StoreProducts.partyPack)
     }
 
     static func spicyPack() -> QuestionPack {
@@ -52,31 +52,31 @@ struct DefaultQuestions {
             Question(text: "Who has sent a risky text they immediately regretted?"),
             Question(text: "Who would be the most chaotic on a dating show?"),
             Question(text: "Who has the most 'it's complicated' situation right now?"),
-        ])
+        ], isPremium: true, productID: StoreProducts.spicyPack)
     }
 
-    static func chillPack() -> QuestionPack {
-        QuestionPack(name: "Chill", questions: [
-            Question(text: "Who gives the best hugs?"),
-            Question(text: "Who would you call first in an emergency?"),
-            Question(text: "Who is the best listener in this group?"),
-            Question(text: "Who would make the best travel buddy?"),
-            Question(text: "Who has the most contagious laugh?"),
-            Question(text: "Who would you trust to plan your birthday party?"),
-            Question(text: "Who is most likely to become famous for something wholesome?"),
-            Question(text: "Who is the best cook in this group?"),
-            Question(text: "Who gives the best life advice?"),
-            Question(text: "Who would you want on your team in a trivia game?"),
-            Question(text: "Who has the best music taste?"),
-            Question(text: "Who would you want as a roommate?"),
-            Question(text: "Who is the most likely to randomly check in on you?"),
-            Question(text: "Who has the most calming presence?"),
-            Question(text: "Who would you trust with your deepest secret?"),
-            Question(text: "Who is most likely to brighten your day with a text?"),
-            Question(text: "Who has the best sense of humor?"),
-            Question(text: "Who would survive the longest on a deserted island?"),
-            Question(text: "Who is the most underrated person in this group?"),
-            Question(text: "Who would you want to be stuck in an elevator with?"),
-        ])
+    static func couplePack() -> QuestionPack {
+        QuestionPack(name: "Couple", questions: [
+            Question(text: "Who is most likely to forget an anniversary?"),
+            Question(text: "Who would plan the most romantic surprise date?"),
+            Question(text: "Who is the bigger hopeless romantic in their relationship?"),
+            Question(text: "Who is most likely to steal the covers at night?"),
+            Question(text: "Who would win in a couple's argument every time?"),
+            Question(text: "Who is most likely to say 'I love you' first?"),
+            Question(text: "Who gives in first after a fight?"),
+            Question(text: "Who is the clingier partner?"),
+            Question(text: "Who would be the first to cry during a proposal?"),
+            Question(text: "Who checks their partner's phone when they're not looking?"),
+            Question(text: "Who would write the most embarrassing love poem?"),
+            Question(text: "Who is most likely to fall asleep during movie night?"),
+            Question(text: "Who is secretly the jealous type?"),
+            Question(text: "Who remembers every little detail about their partner?"),
+            Question(text: "Who would be the most dramatic if their partner didn't text back?"),
+            Question(text: "Who is most likely to plan a surprise trip?"),
+            Question(text: "Who gives the best compliments to their partner?"),
+            Question(text: "Who would accidentally reveal a secret about their relationship?"),
+            Question(text: "Who is more likely to post their partner on social media?"),
+            Question(text: "Who would be the first to adopt a pet together?"),
+        ], isPremium: true, productID: StoreProducts.couplePack)
     }
 }

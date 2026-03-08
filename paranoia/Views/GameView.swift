@@ -21,6 +21,22 @@ struct GameView: View {
         ZStack {
             Color.black.ignoresSafeArea()
 
+            VStack {
+                HStack {
+                    Spacer()
+                    Text("\(session.remainingQuestions.count) left")
+                        .font(.caption.weight(.bold))
+                        .foregroundColor(.gray)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 6)
+                        .background(Color.white.opacity(0.1))
+                        .clipShape(Capsule())
+                }
+                .padding(.horizontal, 24)
+                .padding(.top, 8)
+                Spacer()
+            }
+
             switch phase {
             case .passPhone:
                 passPhoneScreen

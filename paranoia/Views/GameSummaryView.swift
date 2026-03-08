@@ -87,14 +87,20 @@ struct GameSummaryView: View {
 
                 Spacer()
 
-                Button(action: onDone) {
-                    Text("Back to Home")
-                        .font(.title3.weight(.bold))
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 18)
-                        .background(LinearGradient(colors: [.purple, .pink], startPoint: .leading, endPoint: .trailing))
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                VStack(spacing: 12) {
+                    Text("Want to play again? Grab another session!")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+
+                    Button(action: onDone) {
+                        Text("Back to Home")
+                            .font(.title3.weight(.bold))
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 18)
+                            .background(LinearGradient(colors: [.purple, .pink], startPoint: .leading, endPoint: .trailing))
+                            .clipShape(RoundedRectangle(cornerRadius: 16))
+                    }
                 }
                 .padding(.horizontal, 32)
                 .padding(.bottom, 40)

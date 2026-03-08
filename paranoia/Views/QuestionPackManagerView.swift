@@ -2,10 +2,30 @@ import SwiftUI
 import SwiftData
 
 struct QuestionPackManagerView: View {
-    @Environment(\.modelContext) private var modelContext
+    @Environment(StoreManager.self) private var storeManager
     @Query private var packs: [QuestionPack]
-    @State private var showCreatePack = false
-    @State private var editingPack: QuestionPack?
+    @State private var purchasePack: QuestionPack?
+
+    private static let premiumOrder = ["Spicy", "Party", "Couple"]
+
+    private var freePacks: [QuestionPack] {
+        packs.filter { !$0.isPremium }
+    }
+
+    private var premiumPacks: [QuestionPack] {
+        packs.filter { $0.isPremium }
+            .sorted { Self.premiumOrder.firstIndex(of: $0.name) ?? 99 < Self.premiumOrder.firstIndex(of: $1.name) ?? 99 }
+    }
+
+    private static func packDescription(for name: String) -> String {
+        switch name {
+        case "Starter": return "Same 5 demo questions every time — upgrade to a premium pack for more"
+        case "Spicy": return "Bold and daring questions to turn up the heat"
+        case "Party": return "Fun and wild questions perfect for any group"
+        case "Couple": return "Intimate questions for you and your partner"
+        default: return ""
+        }
+    }
 
     var body: some View {
         ZStack {
@@ -23,51 +43,19 @@ struct QuestionPackManagerView: View {
                 } else {
                     ScrollView {
                         LazyVStack(spacing: 12) {
-                            ForEach(packs) { pack in
-                                HStack {
-                                    VStack(alignment: .leading, spacing: 4) {
-                                        HStack {
-                                            Text(pack.name)
-                                                .font(.headline)
-                                                .foregroundColor(.white)
-                                            if pack.isCustom {
-                                                Text("CUSTOM")
-                                                    .font(.caption2.weight(.bold))
-                                                    .foregroundColor(.purple)
-                                                    .padding(.horizontal, 6)
-                                                    .padding(.vertical, 2)
-                                                    .background(Color.purple.opacity(0.2))
-                                                    .clipShape(Capsule())
-                                            }
-                                        }
-                                        Text("\(pack.questions.count) questions")
-                                            .font(.caption)
-                                            .foregroundColor(.gray)
-                                    }
-
-                                    Spacer()
-
-                                    if pack.isCustom {
-                                        Button {
-                                            editingPack = pack
-                                        } label: {
-                                            Image(systemName: "pencil.circle.fill")
-                                                .font(.title2)
-                                                .foregroundColor(.purple)
-                                        }
-
-                                        Button {
-                                            modelContext.delete(pack)
-                                        } label: {
-                                            Image(systemName: "trash.circle.fill")
-                                                .font(.title2)
-                                                .foregroundColor(.red.opacity(0.7))
-                                        }
-                                    }
+                            if !freePacks.isEmpty {
+                                sectionHeader("FREE")
+                                ForEach(freePacks) { pack in
+                                    freePackRow(pack: pack)
                                 }
-                                .padding(16)
-                                .background(Color.white.opacity(0.05))
-                                .clipShape(RoundedRectangle(cornerRadius: 12))
+                            }
+
+                            if !premiumPacks.isEmpty {
+                                sectionHeader("PREMIUM")
+                                    .padding(.top, 8)
+                                ForEach(premiumPacks) { pack in
+                                    premiumPackRow(pack: pack)
+                                }
                             }
                         }
                         .padding(.horizontal, 24)
@@ -78,139 +66,88 @@ struct QuestionPackManagerView: View {
         }
         .navigationTitle("Question Packs")
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    showCreatePack = true
-                } label: {
-                    Image(systemName: "plus")
-                        .foregroundColor(.purple)
-                }
+        .sheet(item: $purchasePack) { pack in
+            PackPurchaseView(pack: pack)
+                .environment(storeManager)
+        }
+    }
+
+    private func sectionHeader(_ title: String) -> some View {
+        HStack {
+            Text(title)
+                .font(.caption.weight(.bold))
+                .foregroundColor(.gray)
+            Spacer()
+        }
+    }
+
+    @ViewBuilder
+    private func freePackRow(pack: QuestionPack) -> some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(pack.name)
+                    .font(.headline)
+                    .foregroundColor(.white)
+                Text("\(pack.questions.count) questions")
+                    .font(.caption)
+                    .foregroundColor(.gray)
+                Text(Self.packDescription(for: pack.name))
+                    .font(.caption2)
+                    .foregroundColor(.gray.opacity(0.7))
             }
+            Spacer()
+            Image(systemName: "checkmark.circle.fill")
+                .foregroundColor(.green)
+                .font(.title2)
         }
-        .sheet(isPresented: $showCreatePack) {
-            EditPackView(pack: nil)
-        }
-        .sheet(item: $editingPack) { pack in
-            EditPackView(pack: pack)
-        }
-        .onAppear {
-            seedDefaultPacksIfNeeded()
-        }
+        .padding(16)
+        .background(Color.white.opacity(0.05))
+        .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 
-    private func seedDefaultPacksIfNeeded() {
-        guard packs.isEmpty else { return }
-        for pack in DefaultQuestions.allPacks() {
-            modelContext.insert(pack)
-        }
-    }
-}
+    @ViewBuilder
+    private func premiumPackRow(pack: QuestionPack) -> some View {
+        let credits = pack.productID.map { storeManager.credits(for: $0) } ?? 0
+        let product = pack.productID.flatMap { storeManager.product(for: $0) }
 
-struct EditPackView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Environment(\.dismiss) private var dismiss
-
-    let pack: QuestionPack?
-
-    @State private var name: String = ""
-    @State private var questionTexts: [String] = [""]
-
-    var isEditing: Bool { pack != nil }
-
-    var body: some View {
-        NavigationStack {
-            ZStack {
-                Color.black.ignoresSafeArea()
-
-                ScrollView {
-                    VStack(spacing: 20) {
-                        TextField("Pack Name", text: $name)
-                            .textFieldStyle(.plain)
-                            .padding(14)
-                            .background(Color.white.opacity(0.1))
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
-                            .foregroundColor(.white)
-                            .padding(.horizontal, 24)
-
-                        Text("Questions")
+        Button {
+            purchasePack = pack
+        } label: {
+            HStack {
+                VStack(alignment: .leading, spacing: 4) {
+                    HStack(spacing: 6) {
+                        Text(pack.name)
                             .font(.headline)
                             .foregroundColor(.white)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.horizontal, 24)
-
-                        ForEach(questionTexts.indices, id: \.self) { index in
-                            HStack {
-                                TextField("Question \(index + 1)", text: $questionTexts[index])
-                                    .textFieldStyle(.plain)
-                                    .padding(12)
-                                    .background(Color.white.opacity(0.1))
-                                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                                    .foregroundColor(.white)
-
-                                if questionTexts.count > 1 {
-                                    Button {
-                                        questionTexts.remove(at: index)
-                                    } label: {
-                                        Image(systemName: "minus.circle.fill")
-                                            .foregroundColor(.red.opacity(0.7))
-                                    }
-                                }
-                            }
-                            .padding(.horizontal, 24)
-                        }
-
-                        Button {
-                            questionTexts.append("")
-                        } label: {
-                            Label("Add Question", systemImage: "plus.circle")
-                                .foregroundColor(.purple)
+                        if credits > 0 {
+                            Text("\(credits) play\(credits == 1 ? "" : "s")")
+                                .font(.caption2.weight(.bold))
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 6)
+                                .padding(.vertical, 2)
+                                .background(Color.green.opacity(0.8))
+                                .clipShape(Capsule())
                         }
                     }
-                    .padding(.top, 20)
-                }
-            }
-            .navigationTitle(isEditing ? "Edit Pack" : "New Pack")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") { dismiss() }
+                    Text("10 questions per session")
+                        .font(.caption)
                         .foregroundColor(.gray)
+                    Text(Self.packDescription(for: pack.name))
+                        .font(.caption2)
+                        .foregroundColor(.gray.opacity(0.7))
                 }
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Save") { save() }
-                        .foregroundColor(.purple)
-                        .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty)
+                Spacer()
+                VStack(spacing: 2) {
+                    Text(credits > 0 ? "Buy More" : "Buy")
+                        .font(.caption.weight(.bold))
+                    Text(product?.displayPrice ?? "$2.99")
+                        .font(.caption2)
                 }
+                .foregroundColor(.purple)
             }
-            .onAppear {
-                if let pack {
-                    name = pack.name
-                    questionTexts = pack.questions.map { $0.text }
-                    if questionTexts.isEmpty { questionTexts = [""] }
-                }
-            }
+            .padding(16)
+            .background(Color.white.opacity(0.05))
+            .clipShape(RoundedRectangle(cornerRadius: 12))
         }
-        .preferredColorScheme(.dark)
-    }
-
-    private func save() {
-        let validQuestions = questionTexts
-            .map { $0.trimmingCharacters(in: .whitespaces) }
-            .filter { !$0.isEmpty }
-            .map { Question(text: $0) }
-
-        if let pack {
-            pack.name = name.trimmingCharacters(in: .whitespaces)
-            pack.questions = validQuestions
-        } else {
-            let newPack = QuestionPack(
-                name: name.trimmingCharacters(in: .whitespaces),
-                questions: validQuestions,
-                isCustom: true
-            )
-            modelContext.insert(newPack)
-        }
-        dismiss()
     }
 }
