@@ -1,7 +1,8 @@
 import Foundation
 
 @Observable
-class GameSession {
+class GameSession: Identifiable {
+    let id = UUID()
     var players: [Player]
     var rounds: [Round] = []
     var currentPlayerIndex: Int = 0

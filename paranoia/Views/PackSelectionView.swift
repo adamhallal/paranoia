@@ -7,7 +7,6 @@ struct PackSelectionView: View {
     @Query private var allPacks: [QuestionPack]
     @State private var selectedPackIDs: Set<UUID> = []
     @State private var gameSession: GameSession?
-    @State private var showGame = false
 
     private var availablePacks: [QuestionPack] {
         allPacks.filter { !$0.questions.isEmpty }
@@ -105,10 +104,8 @@ struct PackSelectionView: View {
             .padding(.top, 20)
         }
         .navigationBarTitleDisplayMode(.inline)
-        .fullScreenCover(isPresented: $showGame) {
-            if let session = gameSession {
-                GameView(session: session)
-            }
+        .fullScreenCover(item: $gameSession) { session in
+            GameView(session: session)
         }
     }
 
@@ -118,6 +115,5 @@ struct PackSelectionView: View {
             .flatMap { $0.questions }
 
         gameSession = GameSession(players: players, questions: selectedQuestions)
-        showGame = true
     }
 }

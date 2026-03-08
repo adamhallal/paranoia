@@ -1,0 +1,408 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AA000002000000000000001A /* ParanoiaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000001A /* ParanoiaApp.swift */; };
+		AA000002000000000000001B /* DefaultQuestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000001B /* DefaultQuestions.swift */; };
+		AA000002000000000000001C /* GameSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000001C /* GameSession.swift */; };
+		AA000002000000000000001D /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000001D /* Player.swift */; };
+		AA000002000000000000001E /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000001E /* Question.swift */; };
+		AA000002000000000000001F /* QuestionPack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000001F /* QuestionPack.swift */; };
+		AA000002000000000000002A /* Round.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000002A /* Round.swift */; };
+		AA000002000000000000002B /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000002B /* HapticManager.swift */; };
+		AA000002000000000000002C /* CoinFlipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000002C /* CoinFlipView.swift */; };
+		AA000002000000000000002D /* GameSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000002D /* GameSummaryView.swift */; };
+		AA000002000000000000002E /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000002E /* GameView.swift */; };
+		AA000002000000000000002F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000002F /* HomeView.swift */; };
+		AA000002000000000000003A /* PackSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000003A /* PackSelectionView.swift */; };
+		AA000002000000000000003B /* PlayerSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000003B /* PlayerSetupView.swift */; };
+		AA000002000000000000003C /* QuestionPackManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000003C /* QuestionPackManagerView.swift */; };
+		AA000002000000000000003D /* RoundResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000003D /* RoundResultView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AA000001000000000000000E /* paranoia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = paranoia.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA000001000000000000001A /* ParanoiaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParanoiaApp.swift; sourceTree = "<group>"; };
+		AA000001000000000000001B /* DefaultQuestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultQuestions.swift; sourceTree = "<group>"; };
+		AA000001000000000000001C /* GameSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSession.swift; sourceTree = "<group>"; };
+		AA000001000000000000001D /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		AA000001000000000000001E /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		AA000001000000000000001F /* QuestionPack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionPack.swift; sourceTree = "<group>"; };
+		AA000001000000000000002A /* Round.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Round.swift; sourceTree = "<group>"; };
+		AA000001000000000000002B /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
+		AA000001000000000000002C /* CoinFlipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinFlipView.swift; sourceTree = "<group>"; };
+		AA000001000000000000002D /* GameSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSummaryView.swift; sourceTree = "<group>"; };
+		AA000001000000000000002E /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		AA000001000000000000002F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		AA000001000000000000003A /* PackSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackSelectionView.swift; sourceTree = "<group>"; };
+		AA000001000000000000003B /* PlayerSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSetupView.swift; sourceTree = "<group>"; };
+		AA000001000000000000003C /* QuestionPackManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionPackManagerView.swift; sourceTree = "<group>"; };
+		AA000001000000000000003D /* RoundResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundResultView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AA000005000000000000000B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AA000001000000000000000B /* root */ = {
+			isa = PBXGroup;
+			children = (
+				AA000003000000000000000A /* paranoia */,
+				AA000001000000000000000C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AA000001000000000000000C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AA000001000000000000000E /* paranoia.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AA000003000000000000000A /* paranoia */ = {
+			isa = PBXGroup;
+			children = (
+				AA000001000000000000001A /* ParanoiaApp.swift */,
+				AA000003000000000000000B /* Data */,
+				AA000003000000000000000C /* Models */,
+				AA000003000000000000000D /* Views */,
+				AA000003000000000000000E /* Utilities */,
+			);
+			path = paranoia;
+			sourceTree = "<group>";
+		};
+		AA000003000000000000000B /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				AA000001000000000000001B /* DefaultQuestions.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		AA000003000000000000000C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AA000001000000000000001C /* GameSession.swift */,
+				AA000001000000000000001D /* Player.swift */,
+				AA000001000000000000001E /* Question.swift */,
+				AA000001000000000000001F /* QuestionPack.swift */,
+				AA000001000000000000002A /* Round.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AA000003000000000000000D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AA000001000000000000002C /* CoinFlipView.swift */,
+				AA000001000000000000002D /* GameSummaryView.swift */,
+				AA000001000000000000002E /* GameView.swift */,
+				AA000001000000000000002F /* HomeView.swift */,
+				AA000001000000000000003A /* PackSelectionView.swift */,
+				AA000001000000000000003B /* PlayerSetupView.swift */,
+				AA000001000000000000003C /* QuestionPackManagerView.swift */,
+				AA000001000000000000003D /* RoundResultView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AA000003000000000000000E /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				AA000001000000000000002B /* HapticManager.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AA000001000000000000000D /* paranoia */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA000004000000000000000D /* Build configuration list for PBXNativeTarget "paranoia" */;
+			buildPhases = (
+				AA000005000000000000000A /* Sources */,
+				AA000005000000000000000B /* Frameworks */,
+				AA000005000000000000000C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = paranoia;
+			productName = paranoia;
+			productReference = AA000001000000000000000E /* paranoia.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AA000001000000000000000A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					AA000001000000000000000D = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = AA000004000000000000000C /* Build configuration list for PBXProject "paranoia" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AA000001000000000000000B;
+			productRefGroup = AA000001000000000000000C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AA000001000000000000000D /* paranoia */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AA000005000000000000000C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AA000005000000000000000A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA000002000000000000001A /* ParanoiaApp.swift in Sources */,
+				AA000002000000000000001B /* DefaultQuestions.swift in Sources */,
+				AA000002000000000000001C /* GameSession.swift in Sources */,
+				AA000002000000000000001D /* Player.swift in Sources */,
+				AA000002000000000000001E /* Question.swift in Sources */,
+				AA000002000000000000001F /* QuestionPack.swift in Sources */,
+				AA000002000000000000002A /* Round.swift in Sources */,
+				AA000002000000000000002B /* HapticManager.swift in Sources */,
+				AA000002000000000000002C /* CoinFlipView.swift in Sources */,
+				AA000002000000000000002D /* GameSummaryView.swift in Sources */,
+				AA000002000000000000002E /* GameView.swift in Sources */,
+				AA000002000000000000002F /* HomeView.swift in Sources */,
+				AA000002000000000000003A /* PackSelectionView.swift in Sources */,
+				AA000002000000000000003B /* PlayerSetupView.swift in Sources */,
+				AA000002000000000000003C /* QuestionPackManagerView.swift in Sources */,
+				AA000002000000000000003D /* RoundResultView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		AA000004000000000000000A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AA000004000000000000000B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AA000004000000000000000E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.adamhallal.paranoia;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		AA000004000000000000000F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.adamhallal.paranoia;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AA000004000000000000000C /* Build configuration list for PBXProject "paranoia" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA000004000000000000000A /* Debug */,
+				AA000004000000000000000B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA000004000000000000000D /* Build configuration list for PBXNativeTarget "paranoia" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA000004000000000000000E /* Debug */,
+				AA000004000000000000000F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = AA000001000000000000000A /* Project object */;
+}
