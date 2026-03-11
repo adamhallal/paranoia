@@ -26,6 +26,8 @@
 		AA000002000000000000004A /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000004A /* StoreManager.swift */; };
 		AA000002000000000000004B /* PackPurchaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000004B /* PackPurchaseView.swift */; };
 		AA000002000000000000004D /* DemoQuestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000004D /* DemoQuestions.swift */; };
+		AA000002000000000000005A /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000005A /* PrivacyInfo.xcprivacy */; };
+		AA000002000000000000005B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000005B /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +52,8 @@
 		AA000001000000000000004B /* PackPurchaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackPurchaseView.swift; sourceTree = "<group>"; };
 		AA000001000000000000004D /* DemoQuestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoQuestions.swift; sourceTree = "<group>"; };
 		AA000001000000000000004E /* ParanoiaProducts.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = ParanoiaProducts.storekit; sourceTree = "<group>"; };
+		AA000001000000000000005A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = "text.xml"; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		AA000001000000000000005B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +87,8 @@
 			isa = PBXGroup;
 			children = (
 				AA000001000000000000001A /* ParanoiaApp.swift */,
+				AA000001000000000000005B /* Assets.xcassets */,
+				AA000001000000000000005A /* PrivacyInfo.xcprivacy */,
 				AA000003000000000000000B /* Data */,
 				AA000003000000000000000C /* Models */,
 				AA000003000000000000000D /* Views */,
@@ -212,6 +218,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA000002000000000000005A /* PrivacyInfo.xcprivacy in Resources */,
+				AA000002000000000000005B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,10 +371,12 @@
 		AA000004000000000000000E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Paranoia;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -388,10 +398,12 @@
 		AA000004000000000000000F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Paranoia;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
