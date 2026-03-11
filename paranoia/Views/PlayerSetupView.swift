@@ -33,6 +33,16 @@ struct PlayerSetupView: View {
                         .foregroundColor(.white)
                         .focused($isInputFocused)
                         .onSubmit { addPlayer() }
+                        .autocorrectionDisabled()
+                        .textInputAutocapitalization(.words)
+                        .onChange(of: newName) {
+                            let filtered = String(newName.unicodeScalars.filter { CharacterSet.alphanumerics.contains($0) })
+                            if filtered.count > 16 {
+                                newName = String(filtered.prefix(16))
+                            } else if filtered != newName {
+                                newName = filtered
+                            }
+                        }
 
                     Button(action: addPlayer) {
                         Image(systemName: "plus.circle.fill")

@@ -74,12 +74,12 @@ struct CoinFlipView: View {
         isFlipping = true
         let isHeads = Bool.random()
 
-        withAnimation(.easeIn(duration: 0.8)) {
+        withAnimation(.easeIn(duration: 1.2)) {
             rotation = 1080 + (isHeads ? 0 : 180)
         }
 
         flipTask = Task {
-            try? await Task.sleep(for: .milliseconds(800))
+            try? await Task.sleep(for: .milliseconds(1200))
             guard !Task.isCancelled else { return }
 
             HapticManager.coinFlipImpact()
@@ -87,7 +87,7 @@ struct CoinFlipView: View {
                 result = isHeads
             }
 
-            try? await Task.sleep(for: .milliseconds(1500))
+            try? await Task.sleep(for: .milliseconds(2000))
             guard !Task.isCancelled else { return }
 
             onResult(isHeads)

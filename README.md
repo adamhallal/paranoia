@@ -5,7 +5,7 @@ A party game for iPhone built with SwiftUI. Based on the classic **Paranoia** dr
 ## How It Works
 
 1. **Gather your friends** (3+ players) and open the app
-2. **Pick question packs** — choose from the free Starter pack or purchase premium packs
+2. **Pick a question pack** — choose from the free Starter pack or purchase a premium pack
 3. **Pass the phone** — the screen tells you who gets it next
 4. **Read the question** — only the person holding the phone sees it (e.g., *"Who is most likely to cry at a movie?"*)
 5. **Say a name out loud** — answer the question by saying someone's name for everyone to hear
@@ -30,6 +30,7 @@ A party game for iPhone built with SwiftUI. Based on the classic **Paranoia** dr
   - **Party** ($2.99/session) — fun and wild questions perfect for any group (10 random from 20)
   - **Couple** ($2.99/session) — intimate questions for you and your partner (10 random from 20)
 - **In-App Purchases** — buy play sessions for premium packs via StoreKit 2
+- **Exit anytime** — leave a game mid-round with a clear warning about losing progress
 - **Game summary** — end-of-game recap showing revealed vs. secret questions
 - **Dark mode UI** — purple/pink gradient theme designed for evening hangouts
 
@@ -53,7 +54,7 @@ paranoia/
 │   ├── Player.swift               # Player (name, id)
 │   ├── Question.swift             # Question model (SwiftData)
 │   ├── QuestionPack.swift         # Question pack model (SwiftData)
-│   ├── Round.swift                # Single round result
+│   ├── Round.swift                # Single round result (player, question, revealed)
 │   └── GameSession.swift          # Game state manager (Observable)
 ├── Views/
 │   ├── HomeView.swift             # Main menu
@@ -106,7 +107,7 @@ Home Screen
     │   Player Setup (add 3+ names)
     │       │
     │       ▼
-    │   Pack Selection (pick 1+ packs)
+    │   Pack Selection (pick a pack)
     │       │
     │       ▼
     │   ┌─────────────────────────┐
