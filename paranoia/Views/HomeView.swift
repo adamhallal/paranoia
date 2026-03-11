@@ -61,13 +61,6 @@ struct HomeView: View {
                                 .background(Color.purple.opacity(0.15))
                                 .clipShape(RoundedRectangle(cornerRadius: 16))
                         }
-                        Button {
-                            Task { await storeManager.restorePurchases() }
-                        } label: {
-                            Text("Restore Purchases")
-                                .font(.subheadline)
-                                .foregroundColor(.gray)
-                        }
                     }
                     .padding(.horizontal, 32)
                     .padding(.bottom, 60)

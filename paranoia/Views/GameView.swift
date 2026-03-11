@@ -16,6 +16,7 @@ struct GameView: View {
     @State private var currentQuestion: Question?
     @State private var wasRevealed = false
     @State private var showSummary = false
+    @State private var showExitConfirmation = false
 
     var body: some View {
         ZStack {
@@ -23,7 +24,19 @@ struct GameView: View {
 
             VStack {
                 HStack {
+                    Button {
+                        showExitConfirmation = true
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.body.weight(.bold))
+                            .foregroundColor(.gray)
+                            .padding(10)
+                            .background(Color.white.opacity(0.1))
+                            .clipShape(Circle())
+                    }
+
                     Spacer()
+
                     Text("\(session.remainingQuestions.count) left")
                         .font(.caption.weight(.bold))
                         .foregroundColor(.gray)
@@ -63,6 +76,14 @@ struct GameView: View {
             GameSummaryView(rounds: session.rounds) {
                 dismiss()
             }
+        }
+        .alert("Leave Game?", isPresented: $showExitConfirmation) {
+            Button("Keep Playing", role: .cancel) { }
+            Button("Leave", role: .destructive) {
+                dismiss()
+            }
+        } message: {
+            Text("Your progress will be lost and the pack will be used.")
         }
     }
 

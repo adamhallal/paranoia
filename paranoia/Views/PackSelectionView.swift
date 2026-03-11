@@ -6,7 +6,7 @@ struct PackSelectionView: View {
 
     @Query private var allPacks: [QuestionPack]
     @Environment(StoreManager.self) private var storeManager
-    @State private var selectedPackIDs: Set<UUID> = []
+    @State private var selectedPackID: UUID?
     @State private var gameSession: GameSession?
     @State private var purchasePack: QuestionPack?
     @State private var lastPurchasePack: QuestionPack?
@@ -34,7 +34,7 @@ struct PackSelectionView: View {
     }
 
     private var canStart: Bool {
-        !selectedPackIDs.isEmpty
+        selectedPackID != nil
     }
 
     var body: some View {
@@ -42,11 +42,11 @@ struct PackSelectionView: View {
             Color.black.ignoresSafeArea()
 
             VStack(spacing: 24) {
-                Text("Pick Your Packs")
+                Text("Pick a Pack")
                     .font(.title.weight(.bold))
                     .foregroundColor(.white)
 
-                Text("Select one or more question packs")
+                Text("Choose a question pack to play")
                     .font(.subheadline)
                     .foregroundColor(.gray)
 
@@ -111,7 +111,7 @@ struct PackSelectionView: View {
         }
         .sheet(item: $purchasePack, onDismiss: {
             if let pack = lastPurchasePack, let productID = pack.productID, storeManager.credits(for: productID) > 0 {
-                selectedPackIDs.insert(pack.id)
+                selectedPackID = pack.id
             }
             lastPurchasePack = nil
         }) { pack in
@@ -122,7 +122,7 @@ struct PackSelectionView: View {
         .alert("No Credits", isPresented: $showCreditsAlert) {
             Button("OK") {}
         } message: {
-            Text("You need to purchase a session for the selected premium pack(s) before playing.")
+            Text("You need to purchase a session for this premium pack before playing.")
         }
     }
 
@@ -137,7 +137,7 @@ struct PackSelectionView: View {
 
     @ViewBuilder
     private func packRow(pack: QuestionPack, isFree: Bool) -> some View {
-        let isSelected = selectedPackIDs.contains(pack.id)
+        let isSelected = selectedPackID == pack.id
         let credits = pack.productID.map { storeManager.credits(for: $0) } ?? 0
         let isLocked = pack.isPremium && credits == 0
 
@@ -145,9 +145,9 @@ struct PackSelectionView: View {
             if isLocked {
                 purchasePack = pack
             } else if isSelected {
-                selectedPackIDs.remove(pack.id)
+                selectedPackID = nil
             } else {
-                selectedPackIDs.insert(pack.id)
+                selectedPackID = pack.id
             }
         } label: {
             HStack {
@@ -207,33 +207,25 @@ struct PackSelectionView: View {
     }
 
     private func startGame() {
-        let selectedPacks = allPacks.filter { selectedPackIDs.contains($0.id) }
+        guard let selectedPack = allPacks.first(where: { $0.id == selectedPackID }) else { return }
 
-        // Check credits for premium packs
-        for pack in selectedPacks where pack.isPremium {
-            guard let productID = pack.productID, storeManager.credits(for: productID) > 0 else {
+        // Check credits for premium pack
+        if selectedPack.isPremium {
+            guard let productID = selectedPack.productID, storeManager.credits(for: productID) > 0 else {
                 showCreditsAlert = true
                 return
             }
-        }
-
-        // Consume credits for premium packs
-        for pack in selectedPacks where pack.isPremium {
-            if let productID = pack.productID {
-                storeManager.consumeCredit(for: productID)
-            }
+            storeManager.consumeCredit(for: productID)
         }
 
         // Build questions: 10 random for premium, all for free/custom
-        var allQuestions: [Question] = []
-        for pack in selectedPacks {
-            if pack.isPremium {
-                allQuestions.append(contentsOf: Array(pack.questions.shuffled().prefix(10)))
-            } else {
-                allQuestions.append(contentsOf: pack.questions)
-            }
+        let questions: [Question]
+        if selectedPack.isPremium {
+            questions = Array(selectedPack.questions.shuffled().prefix(10))
+        } else {
+            questions = selectedPack.questions
         }
 
-        gameSession = GameSession(players: players, questions: allQuestions)
+        gameSession = GameSession(players: players, questions: questions)
     }
 }
