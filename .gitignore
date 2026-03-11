@@ -1,0 +1,13 @@
+# Xcode
+xcuserdata/
+*.xcworkspace/contents.xcworkspacedata
+*.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+project.xcworkspace/
+xcshareddata/
+
+# Build
+build/
+DerivedData/
+
+# OS
+.DS_Store
