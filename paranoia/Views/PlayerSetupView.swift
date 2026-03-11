@@ -115,6 +115,7 @@ struct PlayerSetupView: View {
     private func addPlayer() {
         let trimmed = newName.trimmingCharacters(in: .whitespaces)
         guard !trimmed.isEmpty else { return }
+        guard !players.contains(where: { $0.name.lowercased() == trimmed.lowercased() }) else { return }
         players.append(Player(name: trimmed))
         newName = ""
         isInputFocused = true

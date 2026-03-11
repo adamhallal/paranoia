@@ -74,7 +74,7 @@ struct PackSelectionView: View {
                     VStack(spacing: 8) {
                         Text("No question packs available")
                             .foregroundColor(.gray)
-                        Text("Go back and create some in Question Packs")
+                        Text("Packs are added on first launch")
                             .font(.caption)
                             .foregroundColor(.gray.opacity(0.7))
                     }
@@ -209,20 +209,22 @@ struct PackSelectionView: View {
     private func startGame() {
         guard let selectedPack = allPacks.first(where: { $0.id == selectedPackID }) else { return }
 
-        // Consume credit for premium pack
-        if selectedPack.isPremium {
-            guard let productID = selectedPack.productID, storeManager.consumeCredit(for: productID) else {
-                showCreditsAlert = true
-                return
-            }
-        }
-
-        // Build questions: 10 random for premium, all for free/custom
+        // Build questions first: 10 random for premium, all for free
         let questions: [Question]
         if selectedPack.isPremium {
             questions = Array(selectedPack.questions.shuffled().prefix(10))
         } else {
             questions = selectedPack.questions
+        }
+
+        guard !questions.isEmpty else { return }
+
+        // Consume credit for premium pack only after validating questions exist
+        if selectedPack.isPremium {
+            guard let productID = selectedPack.productID, storeManager.consumeCredit(for: productID) else {
+                showCreditsAlert = true
+                return
+            }
         }
 
         gameSession = GameSession(players: players, questions: questions)

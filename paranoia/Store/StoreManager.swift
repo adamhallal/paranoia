@@ -6,7 +6,6 @@ enum StoreProducts {
     static let partyPack = "com.paranoia.pack.party"
     static let couplePack = "com.paranoia.pack.couple"
     static let allProductIDs: Set<String> = [spicyPack, partyPack, couplePack]
-    static let packProductIDs: Set<String> = [spicyPack, partyPack, couplePack]
 
     static func productID(for packName: String) -> String? {
         switch packName.lowercased() {
@@ -18,6 +17,7 @@ enum StoreProducts {
     }
 }
 
+@MainActor
 @Observable
 class StoreManager {
     private(set) var products: [Product] = []
@@ -27,7 +27,7 @@ class StoreManager {
 
     init() {
         // Load credits from UserDefaults into observable dictionary
-        for id in StoreProducts.packProductIDs {
+        for id in StoreProducts.allProductIDs {
             creditStore[id] = UserDefaults.standard.integer(forKey: "credits_\(id)")
         }
         transactionListener = listenForTransactions()
@@ -58,8 +58,13 @@ class StoreManager {
 
         switch result {
         case .success(let verification):
-            let transaction = try checkVerified(verification)
-            await handleTransaction(transaction)
+            let transaction = verification.unsafePayloadValue
+            do {
+                _ = try checkVerified(verification)
+                await handleTransaction(transaction)
+            } catch {
+                print("Transaction verification failed: \(error)")
+            }
             await transaction.finish()
             return true
         case .userCancelled:
@@ -95,31 +100,22 @@ class StoreManager {
         UserDefaults.standard.set(newValue, forKey: "credits_\(productID)")
     }
 
-    // MARK: - Restore (non-consumable only)
-
-    func restorePurchases() async {
-        for await result in Transaction.currentEntitlements {
-            if let transaction = try? checkVerified(result) {
-                await handleTransaction(transaction)
-            }
-        }
-    }
-
     // MARK: - Private
 
     private func listenForTransactions() -> Task<Void, Never> {
         Task.detached { [weak self] in
             for await result in Transaction.updates {
-                if let transaction = try? self?.checkVerified(result) {
-                    await self?.handleTransaction(transaction)
-                    await transaction.finish()
+                let transaction = result.unsafePayloadValue
+                if let verified = try? self?.checkVerified(result) {
+                    await self?.handleTransaction(verified)
                 }
+                await transaction.finish()
             }
         }
     }
 
     private func handleTransaction(_ transaction: Transaction) async {
-        if StoreProducts.packProductIDs.contains(transaction.productID) {
+        if StoreProducts.allProductIDs.contains(transaction.productID) {
             addCredits(for: transaction.productID)
         }
     }
