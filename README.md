@@ -50,6 +50,9 @@ A party game for iPhone built with SwiftUI. Based on the classic **Paranoia** dr
 ```
 paranoia/
 ├── ParanoiaApp.swift              # App entry point & SwiftData container
+├── Assets.xcassets/               # Asset catalog (app icon, etc.)
+│   └── AppIcon.appiconset/        # 1024x1024 app icon (single-image format)
+├── PrivacyInfo.xcprivacy          # Privacy manifest (UserDefaults declaration)
 ├── Models/
 │   ├── Player.swift               # Player (name, id)
 │   ├── Question.swift             # Question model (SwiftData)
