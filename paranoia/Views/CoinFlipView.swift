@@ -6,6 +6,7 @@ struct CoinFlipView: View {
     @State private var rotation: Double = 0
     @State private var isFlipping = false
     @State private var result: Bool? = nil
+    @State private var flipTask: Task<Void, Never>?
 
     var body: some View {
         VStack(spacing: 32) {
@@ -41,6 +42,7 @@ struct CoinFlipView: View {
                 }
             }
             .rotation3DEffect(.degrees(rotation), axis: (x: 1, y: 0, z: 0))
+            .accessibilityLabel(result == nil ? "Coin" : (result! ? "Heads" : "Tails"))
 
             if !isFlipping && result == nil {
                 Button {
@@ -63,6 +65,9 @@ struct CoinFlipView: View {
                     .transition(.scale.combined(with: .opacity))
             }
         }
+        .onDisappear {
+            flipTask?.cancel()
+        }
     }
 
     private func flipCoin() {
@@ -73,15 +78,19 @@ struct CoinFlipView: View {
             rotation = 1080 + (isHeads ? 0 : 180)
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+        flipTask = Task {
+            try? await Task.sleep(for: .milliseconds(800))
+            guard !Task.isCancelled else { return }
+
             HapticManager.coinFlipImpact()
             withAnimation(.spring(response: 0.3)) {
                 result = isHeads
             }
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                onResult(isHeads)
-            }
+            try? await Task.sleep(for: .milliseconds(1500))
+            guard !Task.isCancelled else { return }
+
+            onResult(isHeads)
         }
     }
 }

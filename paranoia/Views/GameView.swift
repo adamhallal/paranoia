@@ -34,6 +34,7 @@ struct GameView: View {
                             .background(Color.white.opacity(0.1))
                             .clipShape(Circle())
                     }
+                    .accessibilityLabel("Leave game")
 
                     Spacer()
 
@@ -44,6 +45,7 @@ struct GameView: View {
                         .padding(.vertical, 6)
                         .background(Color.white.opacity(0.1))
                         .clipShape(Capsule())
+                        .accessibilityLabel("\(session.remainingQuestions.count) questions remaining")
                 }
                 .padding(.horizontal, 24)
                 .padding(.top, 8)
@@ -204,7 +206,6 @@ struct GameView: View {
         let round = Round(
             askedPlayer: session.currentPlayer,
             question: question,
-            answeredName: "",
             wasRevealed: wasRevealed
         )
         session.addRound(round)

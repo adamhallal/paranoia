@@ -209,13 +209,12 @@ struct PackSelectionView: View {
     private func startGame() {
         guard let selectedPack = allPacks.first(where: { $0.id == selectedPackID }) else { return }
 
-        // Check credits for premium pack
+        // Consume credit for premium pack
         if selectedPack.isPremium {
-            guard let productID = selectedPack.productID, storeManager.credits(for: productID) > 0 else {
+            guard let productID = selectedPack.productID, storeManager.consumeCredit(for: productID) else {
                 showCreditsAlert = true
                 return
             }
-            storeManager.consumeCredit(for: productID)
         }
 
         // Build questions: 10 random for premium, all for free/custom

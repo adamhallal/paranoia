@@ -77,12 +77,15 @@ class StoreManager {
         creditStore[productID] ?? 0
     }
 
-    func consumeCredit(for productID: String) {
+    /// Attempts to consume one credit. Returns true if successful, false if no credits available.
+    @discardableResult
+    func consumeCredit(for productID: String) -> Bool {
         let current = credits(for: productID)
-        guard current > 0 else { return }
+        guard current > 0 else { return false }
         let newValue = current - 1
         creditStore[productID] = newValue
         UserDefaults.standard.set(newValue, forKey: "credits_\(productID)")
+        return true
     }
 
     private func addCredits(for productID: String, count: Int = 1) {

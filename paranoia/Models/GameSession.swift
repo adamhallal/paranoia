@@ -9,7 +9,7 @@ class GameSession: Identifiable {
     var remainingQuestions: [Question]
 
     var currentPlayer: Player {
-        players[currentPlayerIndex]
+        players[min(currentPlayerIndex, players.count - 1)]
     }
 
     var isFinished: Bool {

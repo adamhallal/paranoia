@@ -7,18 +7,26 @@ struct ParanoiaApp: App {
     let modelContainer: ModelContainer
 
     init() {
-        let container = try! ModelContainer(for: QuestionPack.self, Question.self)
-        let context = container.mainContext
-        let descriptor = FetchDescriptor<QuestionPack>()
-        let count = (try? context.fetchCount(descriptor)) ?? 0
-        if count == 0 {
-            context.insert(DemoQuestions.starterPack())
-            for pack in DefaultQuestions.allPacks() {
-                context.insert(pack)
+        do {
+            let container = try ModelContainer(for: QuestionPack.self, Question.self)
+            let context = container.mainContext
+            let descriptor = FetchDescriptor<QuestionPack>()
+            let count = (try? context.fetchCount(descriptor)) ?? 0
+            if count == 0 {
+                context.insert(DemoQuestions.starterPack())
+                for pack in DefaultQuestions.allPacks() {
+                    context.insert(pack)
+                }
+                do {
+                    try context.save()
+                } catch {
+                    print("Failed to save initial question packs: \(error)")
+                }
             }
-            try? context.save()
+            self.modelContainer = container
+        } catch {
+            fatalError("Failed to initialize data store: \(error.localizedDescription)")
         }
-        self.modelContainer = container
     }
 
     var body: some Scene {
