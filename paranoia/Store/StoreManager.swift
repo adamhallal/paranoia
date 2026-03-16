@@ -21,19 +21,14 @@ class StoreManager {
     private(set) var products: [Product] = []
     private(set) var purchaseInProgress = false
     private(set) var creditStore: [String: Int] = [:]
-    private var transactionListener: Task<Void, Never>?
 
     init() {
         // Load credits from UserDefaults into observable dictionary
         for id in StoreProducts.allProductIDs {
             creditStore[id] = UserDefaults.standard.integer(forKey: "credits_\(id)")
         }
-        transactionListener = listenForTransactions()
+        listenForTransactions()
         Task { await loadProducts() }
-    }
-
-    deinit {
-        transactionListener?.cancel()
     }
 
     func loadProducts() async {
@@ -100,17 +95,18 @@ class StoreManager {
 
     // MARK: - Private
 
-    private func listenForTransactions() -> Task<Void, Never> {
+    private func listenForTransactions() {
         Task.detached { [weak self] in
             for await result in Transaction.updates {
                 let transaction = result.unsafePayloadValue
-                if let verified = try? self?.checkVerified(result) {
+                if case .verified(let verified) = result {
                     await self?.handleTransaction(verified)
                 }
                 await transaction.finish()
             }
         }
     }
+
 
     private func handleTransaction(_ transaction: Transaction) async {
         if StoreProducts.allProductIDs.contains(transaction.productID) {
