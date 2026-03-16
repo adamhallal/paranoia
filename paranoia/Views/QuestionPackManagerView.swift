@@ -6,15 +6,13 @@ struct QuestionPackManagerView: View {
     @Query private var packs: [QuestionPack]
     @State private var purchasePack: QuestionPack?
 
-    private static let premiumOrder = ["Spicy", "Party", "Same Side"]
-
     private var freePacks: [QuestionPack] {
-        packs.filter { !$0.isPremium }
+        packs.filter { !$0.isPremium && !$0.questions.isEmpty }
     }
 
     private var premiumPacks: [QuestionPack] {
         packs.filter { $0.isPremium }
-            .sorted { Self.premiumOrder.firstIndex(of: $0.name) ?? 99 < Self.premiumOrder.firstIndex(of: $1.name) ?? 99 }
+            .sorted { QuestionPack.premiumOrder.firstIndex(of: $0.name) ?? 99 < QuestionPack.premiumOrder.firstIndex(of: $1.name) ?? 99 }
     }
 
     private static func packDescription(for name: String) -> String {

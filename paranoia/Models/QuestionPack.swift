@@ -9,6 +9,8 @@ class QuestionPack {
     var isPremium: Bool
     var productID: String?
 
+    static let premiumOrder = ["Spicy", "Party", "Same Side"]
+
     init(name: String, questions: [Question] = [], isPremium: Bool = false, productID: String? = nil) {
         self.id = UUID()
         self.name = name
