@@ -26,10 +26,12 @@ A party game for iPhone built with SwiftUI. Based on the classic **Paranoia** dr
 - **Coin flip animation** — 3D rotation with haptic feedback
 - **Question Packs**:
   - **Starter** (Free) — 5 demo questions to get started
-  - **Spicy** ($2.99/session) — bold and daring questions to turn up the heat (10 random from 20)
-  - **Party** ($2.99/session) — fun and wild questions perfect for any group (10 random from 20)
+  - **Spicy** ($2.99/session) — flirting, exes, and juicy confessions (10 random from 20)
+  - **Party** ($2.99/session) — embarrassing moments and hilarious callouts (10 random from 20)
+  - **Same Side** ($2.99/session) — all boys or all girls only, calling people out (10 random from 20)
 - **In-App Purchases** — buy play sessions for premium packs via StoreKit 2
 - **Exit anytime** — leave a game mid-round with a clear warning about losing progress
+- **Suggest Questions** — users can suggest new questions or packs from the Question Packs screen
 - **Game summary** — end-of-game recap showing revealed vs. secret questions
 - **Dark mode UI** — purple/pink gradient theme designed for evening hangouts
 

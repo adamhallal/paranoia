@@ -17,11 +17,19 @@ struct ParanoiaApp: App {
                 for pack in DefaultQuestions.allPacks() {
                     context.insert(pack)
                 }
-                do {
-                    try context.save()
-                } catch {
-                    print("Failed to save initial question packs: \(error)")
-                }
+            }
+
+            // Insert any new default packs that don't exist yet
+            let existingPacks = (try? context.fetch(descriptor)) ?? []
+            let existingNames = Set(existingPacks.map { $0.name })
+            for pack in DefaultQuestions.allPacks() where !existingNames.contains(pack.name) {
+                context.insert(pack)
+            }
+
+            do {
+                try context.save()
+            } catch {
+                print("Failed to save question packs: \(error)")
             }
             self.modelContainer = container
         } catch {

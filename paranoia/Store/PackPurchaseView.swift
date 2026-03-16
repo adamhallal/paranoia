@@ -24,6 +24,7 @@ struct PackPurchaseView: View {
         switch name {
         case "Spicy": return "Flirting, exes, dating drama, and juicy confessions — things are about to get real"
         case "Party": return "Embarrassing moments, wild dares, and hilarious callouts — perfect for any group hangout"
+        case "Same Side": return "For all boys or all girls — no outsiders, just honest answers and calling people out"
         default: return ""
         }
     }

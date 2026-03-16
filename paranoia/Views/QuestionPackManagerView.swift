@@ -6,7 +6,7 @@ struct QuestionPackManagerView: View {
     @Query private var packs: [QuestionPack]
     @State private var purchasePack: QuestionPack?
 
-    private static let premiumOrder = ["Spicy", "Party"]
+    private static let premiumOrder = ["Spicy", "Party", "Same Side"]
 
     private var freePacks: [QuestionPack] {
         packs.filter { !$0.isPremium }
@@ -20,8 +20,9 @@ struct QuestionPackManagerView: View {
     private static func packDescription(for name: String) -> String {
         switch name {
         case "Starter": return "Upgrade to a premium pack for crazier questions"
-        case "Spicy": return "Bold and daring questions to turn up the heat"
+        case "Spicy": return "Crazy and freaky questions to turn up the heat"
         case "Party": return "Fun and wild questions perfect for any group"
+        case "Same Side": return "For all boys or all girls, calling people out"
         default: return ""
         }
     }

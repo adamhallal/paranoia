@@ -12,7 +12,7 @@ struct PackSelectionView: View {
     @State private var lastPurchasePack: QuestionPack?
     @State private var showCreditsAlert = false
 
-    private static let premiumOrder = ["Spicy", "Party"]
+    private static let premiumOrder = ["Spicy", "Party", "Same Side"]
 
     private var freePacks: [QuestionPack] {
         allPacks.filter { !$0.isPremium && !$0.questions.isEmpty }
@@ -26,8 +26,9 @@ struct PackSelectionView: View {
     private static func packDescription(for name: String) -> String {
         switch name {
         case "Starter": return "Upgrade to a premium pack for crazier questions"
-        case "Spicy": return "Flirting, exes, dating drama, and juicy confessions — things are about to get real"
-        case "Party": return "Embarrassing moments, wild dares, and hilarious callouts — perfect for any group hangout"
+        case "Spicy": return "Flirting, exes, and juicy confessions"
+        case "Party": return "Embarrassing moments and hilarious callouts"
+        case "Same Side": return "All boys or all girls only"
         default: return ""
         }
     }
@@ -171,7 +172,7 @@ struct PackSelectionView: View {
                             .font(.caption)
                             .foregroundColor(.gray)
                     } else {
-                        Text("\(pack.questions.count) questions (Same \(pack.questions.count) demo questions every time)")
+                        Text("\(pack.questions.count) questions (Same demo questions every time)")
                             .font(.caption)
                             .foregroundColor(.gray)
                     }

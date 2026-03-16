@@ -2,7 +2,7 @@ import Foundation
 
 struct DefaultQuestions {
     static func allPacks() -> [QuestionPack] {
-        [partyPack(), spicyPack()]
+        [partyPack(), spicyPack(), sameSidePack()]
     }
 
     static func partyPack() -> QuestionPack {
@@ -28,6 +28,31 @@ struct DefaultQuestions {
             Question(text: "Who would be most likely to befriend a celebrity?"),
             Question(text: "Who is secretly the most competitive?"),
         ], isPremium: true, productID: StoreProducts.partyPack)
+    }
+
+    static func sameSidePack() -> QuestionPack {
+        QuestionPack(name: "Same Side", questions: [
+            Question(text: "Who talks the most behind people's backs?"),
+            Question(text: "Who has the worst taste in the people they're attracted to?"),
+            Question(text: "Who thinks they're the hottest in the group but isn't?"),
+            Question(text: "Who would sell everyone out for clout?"),
+            Question(text: "Who is the most delusional about their love life?"),
+            Question(text: "Who would get exposed first if everyone's DMs got leaked?"),
+            Question(text: "Who acts the most different around people they like?"),
+            Question(text: "Who has the biggest ego in this room?"),
+            Question(text: "Who is lowkey the most jealous of someone here?"),
+            Question(text: "Who would be the first to break a pinky promise?"),
+            Question(text: "Who is the fakest nice person here?"),
+            Question(text: "Who thinks they give good advice but actually doesn't?"),
+            Question(text: "Who has the most secrets they've never told the group?"),
+            Question(text: "Who would throw someone under the bus to save themselves?"),
+            Question(text: "Who is most likely to have a secret social media account?"),
+            Question(text: "Who overestimates how funny they are?"),
+            Question(text: "Who is the worst at apologizing?"),
+            Question(text: "Who is the most dramatic over nothing?"),
+            Question(text: "Who would be the first to crack under pressure?"),
+            Question(text: "Who has the most embarrassing guilty pleasure they won't admit?"),
+        ], isPremium: true, productID: StoreProducts.sameSidePack)
     }
 
     static func spicyPack() -> QuestionPack {
