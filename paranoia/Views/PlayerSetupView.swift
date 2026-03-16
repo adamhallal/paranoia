@@ -36,10 +36,23 @@ struct PlayerSetupView: View {
                         .autocorrectionDisabled()
                         .textInputAutocapitalization(.words)
                         .onChange(of: newName) {
-                            let filtered = String(newName.unicodeScalars.filter { CharacterSet.alphanumerics.contains($0) })
+                            // Allow alphanumerics and spaces
+                            var filtered = String(newName.unicodeScalars.filter {
+                                CharacterSet.alphanumerics.contains($0) || $0 == " "
+                            })
+                            // No leading spaces
+                            while filtered.hasPrefix(" ") {
+                                filtered.removeFirst()
+                            }
+                            // No consecutive spaces
+                            while filtered.contains("  ") {
+                                filtered = filtered.replacingOccurrences(of: "  ", with: " ")
+                            }
+                            // Enforce max length
                             if filtered.count > 16 {
-                                newName = String(filtered.prefix(16))
-                            } else if filtered != newName {
+                                filtered = String(filtered.prefix(16))
+                            }
+                            if filtered != newName {
                                 newName = filtered
                             }
                         }

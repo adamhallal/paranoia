@@ -2,7 +2,7 @@ import Foundation
 
 struct DefaultQuestions {
     static func allPacks() -> [QuestionPack] {
-        [partyPack(), spicyPack(), couplePack()]
+        [partyPack(), spicyPack()]
     }
 
     static func partyPack() -> QuestionPack {
@@ -55,28 +55,4 @@ struct DefaultQuestions {
         ], isPremium: true, productID: StoreProducts.spicyPack)
     }
 
-    static func couplePack() -> QuestionPack {
-        QuestionPack(name: "Couple", questions: [
-            Question(text: "Who is most likely to forget an anniversary?"),
-            Question(text: "Who would plan the most romantic surprise date?"),
-            Question(text: "Who is the bigger hopeless romantic in their relationship?"),
-            Question(text: "Who is most likely to steal the covers at night?"),
-            Question(text: "Who would win in a couple's argument every time?"),
-            Question(text: "Who is most likely to say 'I love you' first?"),
-            Question(text: "Who gives in first after a fight?"),
-            Question(text: "Who is the clingier partner?"),
-            Question(text: "Who would be the first to cry during a proposal?"),
-            Question(text: "Who checks their partner's phone when they're not looking?"),
-            Question(text: "Who would write the most embarrassing love poem?"),
-            Question(text: "Who is most likely to fall asleep during movie night?"),
-            Question(text: "Who is secretly the jealous type?"),
-            Question(text: "Who remembers every little detail about their partner?"),
-            Question(text: "Who would be the most dramatic if their partner didn't text back?"),
-            Question(text: "Who is most likely to plan a surprise trip?"),
-            Question(text: "Who gives the best compliments to their partner?"),
-            Question(text: "Who would accidentally reveal a secret about their relationship?"),
-            Question(text: "Who is more likely to post their partner on social media?"),
-            Question(text: "Who would be the first to adopt a pet together?"),
-        ], isPremium: true, productID: StoreProducts.couplePack)
-    }
 }

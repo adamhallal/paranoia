@@ -20,6 +20,14 @@ struct PackPurchaseView: View {
         return storeManager.credits(for: productID)
     }
 
+    private static func packDescription(for name: String) -> String {
+        switch name {
+        case "Spicy": return "Flirting, exes, dating drama, and juicy confessions — things are about to get real"
+        case "Party": return "Embarrassing moments, wild dares, and hilarious callouts — perfect for any group hangout"
+        default: return ""
+        }
+    }
+
     var body: some View {
         ZStack {
             Color.black.ignoresSafeArea()
@@ -35,11 +43,13 @@ struct PackPurchaseView: View {
                     .font(.system(size: 36, weight: .black, design: .rounded))
                     .foregroundColor(.white)
 
-                Text("10 random questions per session")
+                Text(Self.packDescription(for: pack.name))
                     .font(.headline)
                     .foregroundColor(.gray)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 32)
 
-                Text("Different questions each time you play!")
+                Text("10 random questions per session from a pool of 20")
                     .font(.subheadline)
                     .foregroundColor(.gray)
 

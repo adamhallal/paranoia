@@ -6,7 +6,7 @@ struct QuestionPackManagerView: View {
     @Query private var packs: [QuestionPack]
     @State private var purchasePack: QuestionPack?
 
-    private static let premiumOrder = ["Spicy", "Party", "Couple"]
+    private static let premiumOrder = ["Spicy", "Party"]
 
     private var freePacks: [QuestionPack] {
         packs.filter { !$0.isPremium }
@@ -19,10 +19,9 @@ struct QuestionPackManagerView: View {
 
     private static func packDescription(for name: String) -> String {
         switch name {
-        case "Starter": return "Same 5 demo questions every time — upgrade to a premium pack for more"
+        case "Starter": return "Upgrade to a premium pack for crazier questions"
         case "Spicy": return "Bold and daring questions to turn up the heat"
         case "Party": return "Fun and wild questions perfect for any group"
-        case "Couple": return "Intimate questions for you and your partner"
         default: return ""
         }
     }
@@ -57,10 +56,20 @@ struct QuestionPackManagerView: View {
                                     premiumPackRow(pack: pack)
                                 }
                             }
+
                         }
                         .padding(.horizontal, 24)
                         .padding(.top, 16)
                     }
+
+                    Spacer()
+
+                    VStack(spacing: 12) {
+                        sectionHeader("MORE COMING SOON")
+                        suggestionCard()
+                    }
+                    .padding(.horizontal, 24)
+                    .padding(.bottom, 24)
                 }
             }
         }
@@ -103,6 +112,33 @@ struct QuestionPackManagerView: View {
         .padding(16)
         .background(Color.white.opacity(0.05))
         .clipShape(RoundedRectangle(cornerRadius: 12))
+    }
+
+    private func suggestionCard() -> some View {
+        Link(destination: URL(string: "https://forms.gle/paranoia-suggestions")!) {
+            HStack {
+                VStack(alignment: .leading, spacing: 4) {
+                    HStack(spacing: 6) {
+                        Image(systemName: "lightbulb.fill")
+                            .foregroundColor(.yellow)
+                        Text("Suggest Questions")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                    }
+                    Text("Have an idea for a new question or pack? Let us know!")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                        .multilineTextAlignment(.leading)
+                }
+                Spacer()
+                Image(systemName: "arrow.up.right")
+                    .foregroundColor(.gray)
+                    .font(.subheadline)
+            }
+            .padding(16)
+            .background(Color.white.opacity(0.05))
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+        }
     }
 
     @ViewBuilder

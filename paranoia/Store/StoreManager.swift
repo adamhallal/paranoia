@@ -4,14 +4,12 @@ import StoreKit
 enum StoreProducts {
     static let spicyPack = "com.paranoia.pack.spicy"
     static let partyPack = "com.paranoia.pack.party"
-    static let couplePack = "com.paranoia.pack.couple"
-    static let allProductIDs: Set<String> = [spicyPack, partyPack, couplePack]
+    static let allProductIDs: Set<String> = [spicyPack, partyPack]
 
     static func productID(for packName: String) -> String? {
         switch packName.lowercased() {
         case "spicy": return spicyPack
         case "party": return partyPack
-        case "couple": return couplePack
         default: return nil
         }
     }

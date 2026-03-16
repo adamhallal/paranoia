@@ -28,7 +28,6 @@ A party game for iPhone built with SwiftUI. Based on the classic **Paranoia** dr
   - **Starter** (Free) — 5 demo questions to get started
   - **Spicy** ($2.99/session) — bold and daring questions to turn up the heat (10 random from 20)
   - **Party** ($2.99/session) — fun and wild questions perfect for any group (10 random from 20)
-  - **Couple** ($2.99/session) — intimate questions for you and your partner (10 random from 20)
 - **In-App Purchases** — buy play sessions for premium packs via StoreKit 2
 - **Exit anytime** — leave a game mid-round with a clear warning about losing progress
 - **Game summary** — end-of-game recap showing revealed vs. secret questions

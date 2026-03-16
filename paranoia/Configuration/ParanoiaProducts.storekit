@@ -33,21 +33,6 @@
       "productID" : "com.paranoia.pack.party",
       "referenceName" : "Party Pack Session",
       "type" : "Consumable"
-    },
-    {
-      "displayPrice" : "2.99",
-      "familyShareable" : false,
-      "internalID" : "1003",
-      "localizations" : [
-        {
-          "description" : "Unlock 1 play session of 10 random Couple questions",
-          "displayName" : "Couple Pack Session",
-          "locale" : "en_US"
-        }
-      ],
-      "productID" : "com.paranoia.pack.couple",
-      "referenceName" : "Couple Pack Session",
-      "type" : "Consumable"
     }
   ],
   "settings" : {
