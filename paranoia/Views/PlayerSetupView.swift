@@ -6,8 +6,11 @@ struct PlayerSetupView: View {
     @State private var showPackSelection = false
     @FocusState private var isInputFocused: Bool
 
+    private let minPlayers = 3
+    private let maxPlayers = 10
+
     private var canStart: Bool {
-        players.count >= 3
+        players.count >= minPlayers
     }
 
     var body: some View {
@@ -19,7 +22,7 @@ struct PlayerSetupView: View {
                     .font(.title.weight(.bold))
                     .foregroundColor(.white)
 
-                Text("Add at least 3 players")
+                Text(players.count < minPlayers ? "Add at least \(minPlayers) players" : players.count >= maxPlayers ? "\(maxPlayers) players max" : "\(players.count) players")
                     .font(.subheadline)
                     .foregroundColor(.gray)
 
@@ -62,7 +65,7 @@ struct PlayerSetupView: View {
                             .font(.title)
                             .foregroundColor(.purple)
                     }
-                    .disabled(newName.trimmingCharacters(in: .whitespaces).isEmpty)
+                    .disabled(newName.trimmingCharacters(in: .whitespaces).isEmpty || players.count >= maxPlayers)
                 }
                 .padding(.horizontal, 24)
 
@@ -128,6 +131,7 @@ struct PlayerSetupView: View {
     private func addPlayer() {
         let trimmed = newName.trimmingCharacters(in: .whitespaces)
         guard !trimmed.isEmpty else { return }
+        guard players.count < maxPlayers else { return }
         guard !players.contains(where: { $0.name.lowercased() == trimmed.lowercased() }) else { return }
         players.append(Player(name: trimmed))
         newName = ""

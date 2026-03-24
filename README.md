@@ -4,7 +4,7 @@ A party game for iPhone built with SwiftUI. Based on the classic **Paranoia** dr
 
 ## How It Works
 
-1. **Gather your friends** (3+ players) and open the app
+1. **Gather your friends** (3–10 players) and open the app
 2. **Pick a question pack** — choose from the free Starter pack or purchase a premium pack
 3. **Pass the phone** — the screen tells you who gets it next
 4. **Read the question** — only the person holding the phone sees it (e.g., *"Who is most likely to cry at a movie?"*)
@@ -25,7 +25,7 @@ A party game for iPhone built with SwiftUI. Based on the classic **Paranoia** dr
 - **Privacy screen** — prevents others from seeing the question during handoff
 - **Coin flip animation** — 3D rotation with haptic feedback
 - **Question Packs**:
-  - **Starter** (Free) — 5 demo questions to get started
+  - **Starter** (Free) — 10 demo questions to get started
   - **Spicy** ($2.99/session) — flirting, exes, and juicy confessions (10 random from 20)
   - **Party** ($2.99/session) — embarrassing moments and hilarious callouts (10 random from 20)
   - **Same Side** ($2.99/session) — all boys or all girls only, calling people out (10 random from 20)
@@ -33,6 +33,7 @@ A party game for iPhone built with SwiftUI. Based on the classic **Paranoia** dr
 - **Exit anytime** — leave a game mid-round with a clear warning about losing progress
 - **Suggest Questions** — users can suggest new questions or packs from the Question Packs screen
 - **Game summary** — end-of-game recap showing revealed vs. secret questions
+- **Auto-updating packs** — question pack content updates automatically when a new version is available
 - **Dark mode UI** — purple/pink gradient theme designed for evening hangouts
 
 ## Tech Stack
@@ -108,7 +109,7 @@ Home Screen
     ├── Start Game
     │       │
     │       ▼
-    │   Player Setup (add 3+ names)
+    │   Player Setup (add 3–10 names)
     │       │
     │       ▼
     │   Pack Selection (pick a pack)
@@ -118,7 +119,6 @@ Home Screen
     │   │  GAME LOOP              │
     │   │                         │
     │   │  Pass Phone → Question  │
-    │   │       → Answer Out Loud │
     │   │       → Coin Flip       │
     │   │       → Reveal/Secret   │
     │   │       → Next Player ──┐ │
@@ -137,6 +137,15 @@ Home Screen
             ├── View available packs
             └── Purchase premium packs
 ```
+
+## Updating Question Packs
+
+Each question pack has a `version` number. To update a pack's content:
+
+1. Edit the questions in `DemoQuestions.swift` (Starter) or `DefaultQuestions.swift` (premium packs)
+2. Bump the `version` parameter on that pack (e.g., `version: 2` → `version: 3`)
+
+On next launch, the app compares each bundled pack's version against the stored version. If the bundled version is higher, the old questions are replaced with the new ones automatically.
 
 ## License
 

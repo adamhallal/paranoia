@@ -3,7 +3,6 @@ import SwiftUI
 enum GamePhase {
     case passPhone
     case showQuestion
-    case answered
     case coinFlip
     case result
 }
@@ -57,8 +56,6 @@ struct GameView: View {
                 passPhoneScreen
             case .showQuestion:
                 questionScreen
-            case .answered:
-                answeredScreen
             case .coinFlip:
                 CoinFlipView { isHeads in
                     wasRevealed = isHeads
@@ -154,41 +151,9 @@ struct GameView: View {
 
             Button {
                 HapticManager.lightTap()
-                withAnimation { phase = .answered }
-            } label: {
-                Text("I've Answered")
-                    .font(.title3.weight(.bold))
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 18)
-                    .background(LinearGradient(colors: [.purple, .pink], startPoint: .leading, endPoint: .trailing))
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
-            }
-            .padding(.horizontal, 32)
-            .padding(.bottom, 40)
-        }
-    }
-
-    private var answeredScreen: some View {
-        VStack(spacing: 32) {
-            Spacer()
-
-            Text("Everyone heard the answer...")
-                .font(.title3)
-                .foregroundColor(.gray)
-
-            Text("Now let's see if the question gets revealed!")
-                .font(.headline)
-                .foregroundColor(.white)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 32)
-
-            Spacer()
-
-            Button {
                 withAnimation { phase = .coinFlip }
             } label: {
-                Text("Flip the Coin")
+                Text("I've Answered")
                     .font(.title3.weight(.bold))
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)

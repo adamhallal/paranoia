@@ -85,6 +85,8 @@ struct GameSummaryView: View {
                         .italic()
                 }
 
+                Spacer()
+
                 VStack(spacing: 12) {
                     Text("Want to play again? Grab another session!")
                         .font(.caption)
