@@ -21,16 +21,6 @@ struct PackSelectionView: View {
             .sorted { QuestionPack.premiumOrder.firstIndex(of: $0.name) ?? 99 < QuestionPack.premiumOrder.firstIndex(of: $1.name) ?? 99 }
     }
 
-    private static func packDescription(for name: String) -> String {
-        switch name {
-        case "Starter": return "Upgrade to a premium pack for crazier questions"
-        case "Spicy": return "Flirting, exes, and juicy confessions"
-        case "Party": return "Embarrassing moments and hilarious callouts"
-        case "Same Side": return "All boys or all girls only"
-        default: return ""
-        }
-    }
-
     private var canStart: Bool {
         selectedPackID != nil
     }
@@ -51,14 +41,14 @@ struct PackSelectionView: View {
                 ScrollView {
                     LazyVStack(spacing: 12) {
                         if !freePacks.isEmpty {
-                            sectionHeader("FREE")
+                            SectionHeader(title: "FREE")
                             ForEach(freePacks) { pack in
                                 packRow(pack: pack, isFree: true)
                             }
                         }
 
                         if !premiumPacks.isEmpty {
-                            sectionHeader("PREMIUM")
+                            SectionHeader(title: "PREMIUM")
                                 .padding(.top, 8)
                             ForEach(premiumPacks) { pack in
                                 packRow(pack: pack, isFree: false)
@@ -86,20 +76,11 @@ struct PackSelectionView: View {
                     startGame()
                 } label: {
                     Text("Let's Go!")
-                        .font(.title3.weight(.bold))
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 18)
-                        .background(
-                            canStart
-                                ? AnyShapeStyle(LinearGradient(colors: [.purple, .pink], startPoint: .leading, endPoint: .trailing))
-                                : AnyShapeStyle(Color.gray.opacity(0.3))
-                        )
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                        .primaryButtonStyle(isEnabled: canStart)
                 }
                 .disabled(!canStart)
                 .padding(.horizontal, 32)
-                .padding(.bottom, 20)
+                .padding(.bottom, 40)
             }
             .padding(.top, 20)
         }
@@ -122,15 +103,6 @@ struct PackSelectionView: View {
             Button("OK") {}
         } message: {
             Text("You need to purchase a session for this premium pack before playing.")
-        }
-    }
-
-    private func sectionHeader(_ title: String) -> some View {
-        HStack {
-            Text(title)
-                .font(.caption.weight(.bold))
-                .foregroundColor(.gray)
-            Spacer()
         }
     }
 
@@ -166,7 +138,7 @@ struct PackSelectionView: View {
                         }
                     }
                     if pack.isPremium {
-                        Text("10 random questions per session")
+                        Text("\(Theme.premiumQuestionsPerSession) random questions per session")
                             .font(.caption)
                             .foregroundColor(.gray)
                     } else {
@@ -174,7 +146,7 @@ struct PackSelectionView: View {
                             .font(.caption)
                             .foregroundColor(.gray)
                     }
-                    Text(Self.packDescription(for: pack.name))
+                    Text(pack.packDescription)
                         .font(.caption2)
                         .foregroundColor(.gray.opacity(0.7))
                 }
@@ -211,7 +183,7 @@ struct PackSelectionView: View {
         // Build questions first: 10 random for premium, all for free
         let questions: [Question]
         if selectedPack.isPremium {
-            questions = Array(selectedPack.questions.shuffled().prefix(10))
+            questions = Array(selectedPack.questions.shuffled().prefix(Theme.premiumQuestionsPerSession))
         } else {
             questions = selectedPack.questions
         }

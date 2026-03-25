@@ -8,7 +8,7 @@ struct DefaultQuestions {
     static func partyPack() -> QuestionPack {
         QuestionPack(name: "Party", questions: [
             Question(text: "Who is most likely to embarrass themselves on a dance floor?"),
-            Question(text: "Who would survive the longest in a horror movie?"),
+            Question(text: "Who would be the worst person to be stuck in an elevator with?"),
             Question(text: "Who is the worst at keeping secrets?"),
             Question(text: "Who would be the first to eat something weird on a dare?"),
             Question(text: "Who talks the most trash but can't back it up?"),
@@ -16,7 +16,7 @@ struct DefaultQuestions {
             Question(text: "Who is most likely to show up to the wrong party?"),
             Question(text: "Who gives the worst directions?"),
             Question(text: "Who would win a karaoke competition?"),
-            Question(text: "Who is the biggest lightweight?"),
+            Question(text: "Who would be the most fun on a road trip?"),
             Question(text: "Who would be the funniest stand-up comedian?"),
             Question(text: "Who takes the longest to get ready?"),
             Question(text: "Who is most likely to forget someone's name mid-conversation?"),
@@ -27,7 +27,7 @@ struct DefaultQuestions {
             Question(text: "Who has the most questionable search history?"),
             Question(text: "Who would be most likely to befriend a celebrity?"),
             Question(text: "Who is secretly the most competitive?"),
-        ], isPremium: true, productID: StoreProducts.partyPack)
+        ], isPremium: true, productID: StoreProducts.partyPack, version: 2)
     }
 
     static func sameSidePack() -> QuestionPack {

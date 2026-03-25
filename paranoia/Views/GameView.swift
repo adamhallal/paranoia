@@ -59,7 +59,7 @@ struct GameView: View {
             case .coinFlip:
                 CoinFlipView { isHeads in
                     wasRevealed = isHeads
-                    withAnimation { phase = .result }
+                    withAnimation(.easeInOut(duration: 0.3)) { phase = .result }
                 }
             case .result:
                 RoundResultView(
@@ -111,18 +111,13 @@ struct GameView: View {
             Button {
                 currentQuestion = session.nextQuestion()
                 if currentQuestion != nil {
-                    withAnimation { phase = .showQuestion }
+                    withAnimation(.easeInOut(duration: 0.3)) { phase = .showQuestion }
                 } else {
                     showSummary = true
                 }
             } label: {
                 Text("I'm \(session.currentPlayer.name)")
-                    .font(.title3.weight(.bold))
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 18)
-                    .background(LinearGradient(colors: [.purple, .pink], startPoint: .leading, endPoint: .trailing))
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                    .primaryButtonStyle()
             }
             .padding(.horizontal, 32)
             .padding(.bottom, 40)
@@ -151,15 +146,10 @@ struct GameView: View {
 
             Button {
                 HapticManager.lightTap()
-                withAnimation { phase = .coinFlip }
+                withAnimation(.easeInOut(duration: 0.3)) { phase = .coinFlip }
             } label: {
                 Text("I've Answered")
-                    .font(.title3.weight(.bold))
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 18)
-                    .background(LinearGradient(colors: [.purple, .pink], startPoint: .leading, endPoint: .trailing))
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                    .primaryButtonStyle()
             }
             .padding(.horizontal, 32)
             .padding(.bottom, 40)
@@ -180,7 +170,7 @@ struct GameView: View {
         } else {
             wasRevealed = false
             currentQuestion = nil
-            withAnimation { phase = .passPhone }
+            withAnimation(.easeInOut(duration: 0.3)) { phase = .passPhone }
         }
     }
 }

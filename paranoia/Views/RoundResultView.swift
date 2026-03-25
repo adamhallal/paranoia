@@ -14,10 +14,12 @@ struct RoundResultView: View {
                 Image(systemName: "eye.fill")
                     .font(.system(size: 50))
                     .foregroundColor(.green)
+                    .accessibilityHidden(true)
 
                 Text("REVEALED!")
                     .font(.system(size: 36, weight: .black, design: .rounded))
                     .foregroundColor(.green)
+                    .accessibilityLabel("Question revealed")
 
                 Text("\(playerName) was asked:")
                     .font(.subheadline)
@@ -28,14 +30,17 @@ struct RoundResultView: View {
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 32)
+                    .accessibilityLabel("Question: \(question)")
             } else {
                 Image(systemName: "eye.slash.fill")
                     .font(.system(size: 50))
                     .foregroundColor(.red)
+                    .accessibilityHidden(true)
 
                 Text("SECRET!")
                     .font(.system(size: 36, weight: .black, design: .rounded))
                     .foregroundColor(.red)
+                    .accessibilityLabel("Question kept secret")
 
                 Text("The question stays a mystery...")
                     .font(.title3)
@@ -50,13 +55,9 @@ struct RoundResultView: View {
 
             Button(action: onContinue) {
                 Text("Next Round")
-                    .font(.title3.weight(.bold))
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 18)
-                    .background(LinearGradient(colors: [.purple, .pink], startPoint: .leading, endPoint: .trailing))
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                    .primaryButtonStyle()
             }
+            .accessibilityLabel("Next round")
             .padding(.horizontal, 32)
             .padding(.bottom, 40)
         }

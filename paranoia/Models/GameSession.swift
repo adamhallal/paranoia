@@ -17,6 +17,7 @@ class GameSession: Identifiable {
     }
 
     init(players: [Player], questions: [Question]) {
+        precondition(players.count >= 3, "GameSession requires at least 3 players")
         self.players = players
         self.remainingQuestions = questions.shuffled()
     }

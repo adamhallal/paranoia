@@ -1,13 +1,14 @@
 import UIKit
 
 struct HapticManager {
+    private static let heavyGenerator = UIImpactFeedbackGenerator(style: .heavy)
+    private static let lightGenerator = UIImpactFeedbackGenerator(style: .light)
+
     static func coinFlipImpact() {
-        let generator = UIImpactFeedbackGenerator(style: .heavy)
-        generator.impactOccurred()
+        heavyGenerator.impactOccurred()
     }
 
     static func lightTap() {
-        let generator = UIImpactFeedbackGenerator(style: .light)
-        generator.impactOccurred()
+        lightGenerator.impactOccurred()
     }
 }

@@ -4,5 +4,5 @@ struct Round: Identifiable {
     let id = UUID()
     let askedPlayer: Player
     let question: Question
-    var wasRevealed: Bool
+    let wasRevealed: Bool
 }

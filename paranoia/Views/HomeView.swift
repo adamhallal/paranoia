@@ -36,18 +36,7 @@ struct HomeView: View {
                             showPlayerSetup = true
                         } label: {
                             Text("Start Game")
-                                .font(.title2.weight(.bold))
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 18)
-                                .background(
-                                    LinearGradient(
-                                        colors: [.purple, .pink],
-                                        startPoint: .leading,
-                                        endPoint: .trailing
-                                    )
-                                )
-                                .clipShape(RoundedRectangle(cornerRadius: 16))
+                                .primaryButtonStyle()
                         }
 
                         Button {

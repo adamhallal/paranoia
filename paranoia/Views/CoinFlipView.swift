@@ -53,7 +53,7 @@ struct CoinFlipView: View {
                         .foregroundColor(.white)
                         .padding(.horizontal, 40)
                         .padding(.vertical, 16)
-                        .background(Color.purple)
+                        .background(Theme.primaryGradient)
                         .clipShape(Capsule())
                 }
             }

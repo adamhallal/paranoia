@@ -20,4 +20,23 @@ class QuestionPack {
         self.productID = productID
         self.version = version
     }
+
+    var packDescription: String {
+        switch name {
+        case "Starter": return "Upgrade to a premium pack for crazier questions"
+        case "Spicy": return "Flirting, exes, and juicy confessions"
+        case "Party": return "Embarrassing moments and hilarious callouts"
+        case "Same Side": return "All boys or all girls only"
+        default: return ""
+        }
+    }
+
+    var detailedDescription: String {
+        switch name {
+        case "Spicy": return "Flirting, exes, dating drama, and juicy confessions — things are about to get real"
+        case "Party": return "Embarrassing moments, wild dares, and hilarious callouts — perfect for any group hangout"
+        case "Same Side": return "For all boys or all girls — no outsiders, just honest answers and calling people out"
+        default: return ""
+        }
+    }
 }

@@ -15,16 +15,6 @@ struct QuestionPackManagerView: View {
             .sorted { QuestionPack.premiumOrder.firstIndex(of: $0.name) ?? 99 < QuestionPack.premiumOrder.firstIndex(of: $1.name) ?? 99 }
     }
 
-    private static func packDescription(for name: String) -> String {
-        switch name {
-        case "Starter": return "Upgrade to a premium pack for crazier questions"
-        case "Spicy": return "Crazy and freaky questions to turn up the heat"
-        case "Party": return "Fun and wild questions perfect for any group"
-        case "Same Side": return "For all boys or all girls, calling people out"
-        default: return ""
-        }
-    }
-
     var body: some View {
         ZStack {
             Color.black.ignoresSafeArea()
@@ -42,14 +32,14 @@ struct QuestionPackManagerView: View {
                     ScrollView {
                         LazyVStack(spacing: 12) {
                             if !freePacks.isEmpty {
-                                sectionHeader("FREE")
+                                SectionHeader(title: "FREE")
                                 ForEach(freePacks) { pack in
                                     freePackRow(pack: pack)
                                 }
                             }
 
                             if !premiumPacks.isEmpty {
-                                sectionHeader("PREMIUM")
+                                SectionHeader(title: "PREMIUM")
                                     .padding(.top, 8)
                                 ForEach(premiumPacks) { pack in
                                     premiumPackRow(pack: pack)
@@ -64,7 +54,7 @@ struct QuestionPackManagerView: View {
                     Spacer()
 
                     VStack(spacing: 12) {
-                        sectionHeader("MORE COMING SOON")
+                        SectionHeader(title: "MORE COMING SOON")
                         suggestionCard()
                     }
                     .padding(.horizontal, 24)
@@ -80,15 +70,6 @@ struct QuestionPackManagerView: View {
         }
     }
 
-    private func sectionHeader(_ title: String) -> some View {
-        HStack {
-            Text(title)
-                .font(.caption.weight(.bold))
-                .foregroundColor(.gray)
-            Spacer()
-        }
-    }
-
     @ViewBuilder
     private func freePackRow(pack: QuestionPack) -> some View {
         HStack {
@@ -99,7 +80,7 @@ struct QuestionPackManagerView: View {
                 Text("\(pack.questions.count) questions")
                     .font(.caption)
                     .foregroundColor(.gray)
-                Text(Self.packDescription(for: pack.name))
+                Text(pack.packDescription)
                     .font(.caption2)
                     .foregroundColor(.gray.opacity(0.7))
             }
@@ -113,8 +94,10 @@ struct QuestionPackManagerView: View {
         .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 
+    private static let suggestionsURL = URL(string: "https://forms.gle/paranoia-suggestions")!
+
     private func suggestionCard() -> some View {
-        Link(destination: URL(string: "https://forms.gle/paranoia-suggestions")!) {
+        Link(destination: Self.suggestionsURL) {
             HStack {
                 VStack(alignment: .leading, spacing: 4) {
                     HStack(spacing: 6) {
@@ -164,10 +147,10 @@ struct QuestionPackManagerView: View {
                                 .clipShape(Capsule())
                         }
                     }
-                    Text("10 questions per session")
+                    Text("\(Theme.premiumQuestionsPerSession) questions per session")
                         .font(.caption)
                         .foregroundColor(.gray)
-                    Text(Self.packDescription(for: pack.name))
+                    Text(pack.packDescription)
                         .font(.caption2)
                         .foregroundColor(.gray.opacity(0.7))
                 }

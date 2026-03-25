@@ -23,14 +23,18 @@ class StoreManager {
     private(set) var products: [Product] = []
     private(set) var purchaseInProgress = false
     private(set) var creditStore: [String: Int] = [:]
+    nonisolated(unsafe) private var transactionListener: Task<Void, Never>?
 
     init() {
-        // Load credits from UserDefaults into observable dictionary
         for id in StoreProducts.allProductIDs {
-            creditStore[id] = UserDefaults.standard.integer(forKey: "credits_\(id)")
+            creditStore[id] = UserDefaults.standard.integer(forKey: Self.creditKey(for: id))
         }
-        listenForTransactions()
+        transactionListener = listenForTransactions()
         Task { await loadProducts() }
+    }
+
+    deinit {
+        transactionListener?.cancel()
     }
 
     func loadProducts() async {
@@ -49,17 +53,19 @@ class StoreManager {
         purchaseInProgress = true
         defer { purchaseInProgress = false }
 
-        let result = try await product.purchase()
+        let result: Product.PurchaseResult
+        do {
+            result = try await product.purchase()
+        } catch Product.PurchaseError.productUnavailable {
+            throw StoreError.productUnavailable
+        } catch {
+            throw StoreError.purchaseFailed(error)
+        }
 
         switch result {
         case .success(let verification):
-            let transaction = verification.unsafePayloadValue
-            do {
-                _ = try checkVerified(verification)
-                await handleTransaction(transaction)
-            } catch {
-                print("Transaction verification failed: \(error)")
-            }
+            let transaction = try checkVerified(verification)
+            await handleTransaction(transaction)
             await transaction.finish()
             return true
         case .userCancelled:
@@ -77,14 +83,13 @@ class StoreManager {
         creditStore[productID] ?? 0
     }
 
-    /// Attempts to consume one credit. Returns true if successful, false if no credits available.
     @discardableResult
     func consumeCredit(for productID: String) -> Bool {
         let current = credits(for: productID)
         guard current > 0 else { return false }
         let newValue = current - 1
         creditStore[productID] = newValue
-        UserDefaults.standard.set(newValue, forKey: "credits_\(productID)")
+        UserDefaults.standard.set(newValue, forKey: Self.creditKey(for: productID))
         return true
     }
 
@@ -92,12 +97,16 @@ class StoreManager {
         let current = credits(for: productID)
         let newValue = current + count
         creditStore[productID] = newValue
-        UserDefaults.standard.set(newValue, forKey: "credits_\(productID)")
+        UserDefaults.standard.set(newValue, forKey: Self.creditKey(for: productID))
+    }
+
+    private static func creditKey(for productID: String) -> String {
+        "credits_\(productID)"
     }
 
     // MARK: - Private
 
-    private func listenForTransactions() {
+    private func listenForTransactions() -> Task<Void, Never> {
         Task.detached { [weak self] in
             for await result in Transaction.updates {
                 let transaction = result.unsafePayloadValue
@@ -108,7 +117,6 @@ class StoreManager {
             }
         }
     }
-
 
     private func handleTransaction(_ transaction: Transaction) async {
         if StoreProducts.allProductIDs.contains(transaction.productID) {
@@ -126,6 +134,19 @@ class StoreManager {
     }
 }
 
-enum StoreError: Error {
+enum StoreError: Error, LocalizedError {
     case verificationFailed
+    case productUnavailable
+    case purchaseFailed(Error)
+
+    var errorDescription: String? {
+        switch self {
+        case .verificationFailed:
+            return "Transaction verification failed."
+        case .productUnavailable:
+            return "This product is currently unavailable."
+        case .purchaseFailed:
+            return "Purchase failed. Please try again."
+        }
+    }
 }

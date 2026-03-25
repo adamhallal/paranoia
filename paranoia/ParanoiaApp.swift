@@ -12,7 +12,6 @@ struct ParanoiaApp: App {
             let context = container.mainContext
             let descriptor = FetchDescriptor<QuestionPack>()
             let existingPacks = (try? context.fetch(descriptor)) ?? []
-            let existingNames = Set(existingPacks.map { $0.name })
 
             let freshPacks = [DemoQuestions.starterPack()] + DefaultQuestions.allPacks()
             for freshPack in freshPacks {

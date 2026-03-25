@@ -52,8 +52,8 @@ struct PlayerSetupView: View {
                                 filtered = filtered.replacingOccurrences(of: "  ", with: " ")
                             }
                             // Enforce max length
-                            if filtered.count > 16 {
-                                filtered = String(filtered.prefix(16))
+                            if filtered.count > Theme.maxNameLength {
+                                filtered = String(filtered.prefix(Theme.maxNameLength))
                             }
                             if filtered != newName {
                                 newName = filtered
@@ -65,6 +65,7 @@ struct PlayerSetupView: View {
                             .font(.title)
                             .foregroundColor(.purple)
                     }
+                    .accessibilityLabel("Add player")
                     .disabled(newName.trimmingCharacters(in: .whitespaces).isEmpty || players.count >= maxPlayers)
                 }
                 .padding(.horizontal, 24)
@@ -89,6 +90,7 @@ struct PlayerSetupView: View {
                                     Image(systemName: "xmark.circle.fill")
                                         .foregroundColor(.red.opacity(0.7))
                                 }
+                                .accessibilityLabel("Remove \(player.name)")
                             }
                             .padding(.horizontal, 16)
                             .padding(.vertical, 12)
@@ -105,20 +107,11 @@ struct PlayerSetupView: View {
                     showPackSelection = true
                 } label: {
                     Text("Choose Questions")
-                        .font(.title3.weight(.bold))
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 18)
-                        .background(
-                            canStart
-                                ? AnyShapeStyle(LinearGradient(colors: [.purple, .pink], startPoint: .leading, endPoint: .trailing))
-                                : AnyShapeStyle(Color.gray.opacity(0.3))
-                        )
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                        .primaryButtonStyle(isEnabled: canStart)
                 }
                 .disabled(!canStart)
                 .padding(.horizontal, 32)
-                .padding(.bottom, 20)
+                .padding(.bottom, 40)
             }
             .padding(.top, 20)
         }

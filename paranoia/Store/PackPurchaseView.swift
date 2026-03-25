@@ -20,15 +20,6 @@ struct PackPurchaseView: View {
         return storeManager.credits(for: productID)
     }
 
-    private static func packDescription(for name: String) -> String {
-        switch name {
-        case "Spicy": return "Flirting, exes, dating drama, and juicy confessions — things are about to get real"
-        case "Party": return "Embarrassing moments, wild dares, and hilarious callouts — perfect for any group hangout"
-        case "Same Side": return "For all boys or all girls — no outsiders, just honest answers and calling people out"
-        default: return ""
-        }
-    }
-
     var body: some View {
         ZStack {
             Color.black.ignoresSafeArea()
@@ -44,13 +35,13 @@ struct PackPurchaseView: View {
                     .font(.system(size: 36, weight: .black, design: .rounded))
                     .foregroundColor(.white)
 
-                Text(Self.packDescription(for: pack.name))
+                Text(pack.detailedDescription)
                     .font(.headline)
                     .foregroundColor(.gray)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 32)
 
-                Text("10 random questions per session from a pool of 20")
+                Text("\(Theme.premiumQuestionsPerSession) random questions per session from a pool of 20")
                     .font(.subheadline)
                     .foregroundColor(.gray)
 
@@ -89,12 +80,7 @@ struct PackPurchaseView: View {
                                     .minimumScaleFactor(0.8)
                             }
                         }
-                        .font(.title3.weight(.bold))
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 18)
-                        .background(LinearGradient(colors: [.purple, .pink], startPoint: .leading, endPoint: .trailing))
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                        .primaryButtonStyle()
                     }
                     .disabled(isPurchasing)
                     .padding(.horizontal, 32)
@@ -123,7 +109,7 @@ struct PackPurchaseView: View {
                 showSuccess = true
             }
         } catch {
-            errorMessage = "Purchase failed. Please try again."
+            errorMessage = error.localizedDescription
         }
 
         isPurchasing = false

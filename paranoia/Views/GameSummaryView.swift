@@ -9,7 +9,7 @@ struct GameSummaryView: View {
     }
 
     private var secretCount: Int {
-        rounds.filter { !$0.wasRevealed }.count
+        rounds.count - revealedRounds.count
     }
 
     var body: some View {
@@ -37,6 +37,8 @@ struct GameSummaryView: View {
                             .font(.caption)
                             .foregroundColor(.gray)
                     }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel("\(revealedRounds.count) revealed")
 
                     VStack {
                         Text("\(secretCount)")
@@ -46,6 +48,8 @@ struct GameSummaryView: View {
                             .font(.caption)
                             .foregroundColor(.gray)
                     }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel("\(secretCount) secret")
                 }
                 .padding(.vertical, 8)
 
@@ -94,12 +98,7 @@ struct GameSummaryView: View {
 
                     Button(action: onDone) {
                         Text("Back to Home")
-                            .font(.title3.weight(.bold))
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 18)
-                            .background(LinearGradient(colors: [.purple, .pink], startPoint: .leading, endPoint: .trailing))
-                            .clipShape(RoundedRectangle(cornerRadius: 16))
+                            .primaryButtonStyle()
                     }
                 }
                 .padding(.horizontal, 32)
@@ -107,4 +106,13 @@ struct GameSummaryView: View {
             }
         }
     }
+}
+
+#Preview {
+    GameSummaryView(
+        rounds: [
+            Round(askedPlayer: Player(name: "Alex"), question: Question(text: "Who is most likely to cry at a movie?"), wasRevealed: true),
+            Round(askedPlayer: Player(name: "Jordan"), question: Question(text: "Who gives the best hugs?"), wasRevealed: false),
+        ]
+    ) {}
 }

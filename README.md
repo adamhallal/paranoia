@@ -51,36 +51,49 @@ A party game for iPhone built with SwiftUI. Based on the classic **Paranoia** dr
 
 ```
 paranoia/
-├── ParanoiaApp.swift              # App entry point & SwiftData container
+├── ParanoiaApp.swift              # App entry point & SwiftData container setup
 ├── Assets.xcassets/               # Asset catalog (app icon, etc.)
 │   └── AppIcon.appiconset/        # 1024x1024 app icon (single-image format)
 ├── PrivacyInfo.xcprivacy          # Privacy manifest (UserDefaults declaration)
 ├── Models/
-│   ├── Player.swift               # Player (name, id)
-│   ├── Question.swift             # Question model (SwiftData)
-│   ├── QuestionPack.swift         # Question pack model (SwiftData)
-│   ├── Round.swift                # Single round result (player, question, revealed)
-│   └── GameSession.swift          # Game state manager (Observable)
+│   ├── Player.swift               # Player struct (name, id)
+│   ├── Question.swift             # Question model (SwiftData, stores question text)
+│   ├── QuestionPack.swift         # Pack model (SwiftData, owns questions, tracks version)
+│   ├── Round.swift                # Single round result (who was asked, what, revealed?)
+│   └── GameSession.swift          # Observable game state (players, rounds, question queue)
 ├── Views/
-│   ├── HomeView.swift             # Main menu
-│   ├── PlayerSetupView.swift      # Add/remove players
-│   ├── PackSelectionView.swift    # Choose question packs
-│   ├── GameView.swift             # Core game loop (5 phases)
-│   ├── CoinFlipView.swift         # Animated coin flip
-│   ├── RoundResultView.swift      # Revealed/secret result screen
-│   ├── GameSummaryView.swift      # End-of-game recap
-│   └── QuestionPackManagerView.swift  # Browse & purchase packs
+│   ├── HomeView.swift             # Main menu — "Start Game" and "Question Packs" buttons
+│   ├── PlayerSetupView.swift      # Add/remove players (3–10), name validation
+│   ├── PackSelectionView.swift    # Pick a pack to play, shows credits, starts game
+│   ├── GameView.swift             # Core game loop controller (pass → question → flip → result)
+│   ├── CoinFlipView.swift         # Animated 3D coin flip with haptic feedback
+│   ├── RoundResultView.swift      # Shows revealed question or "secret" message
+│   ├── GameSummaryView.swift      # End-of-game recap (revealed vs. secret stats)
+│   └── QuestionPackManagerView.swift  # Browse all packs, purchase, suggest questions
 ├── Store/
-│   ├── StoreManager.swift         # StoreKit 2 purchase & credit management
-│   └── PackPurchaseView.swift     # Purchase sheet UI
+│   ├── StoreManager.swift         # StoreKit 2 IAP, credit system (UserDefaults), transaction listener
+│   └── PackPurchaseView.swift     # Purchase sheet for a single premium pack
 ├── Data/
-│   ├── DefaultQuestions.swift     # Premium question packs
-│   └── DemoQuestions.swift        # Free Starter pack
+│   ├── DefaultQuestions.swift     # Premium pack definitions (Party, Spicy, Same Side)
+│   └── DemoQuestions.swift        # Free Starter pack definition
 ├── Configuration/
-│   └── ParanoiaProducts.storekit  # StoreKit testing config
+│   └── ParanoiaProducts.storekit  # StoreKit testing configuration
 └── Utilities/
-    └── HapticManager.swift        # Haptic feedback helpers
+    ├── HapticManager.swift        # Cached haptic feedback generators (heavy/light)
+    └── Theme.swift                # Shared constants, gradient, button style, section header
 ```
+
+### Key Files Explained
+
+| File | What it does | When you'd edit it |
+|------|-------------|-------------------|
+| `ParanoiaApp.swift` | Creates the SwiftData container, auto-inserts/updates packs on launch | Adding new models or changing pack seeding logic |
+| `GameSession.swift` | Holds all runtime game state — player rotation, question queue, round history | Changing game rules (e.g. turn order, win conditions) |
+| `QuestionPack.swift` | SwiftData model with `packDescription` and `detailedDescription` computed properties | Adding pack metadata or changing the data schema |
+| `Theme.swift` | `PrimaryButtonStyle` modifier, `SectionHeader` view, `primaryGradient`, and constants (`questionsPerSession`, `maxNameLength`) | Changing app-wide styling or shared constants |
+| `StoreManager.swift` | Manages products, purchases, and a per-pack credit system stored in UserDefaults | Changing pricing, credit logic, or adding new IAP products |
+| `DefaultQuestions.swift` | Where premium pack questions live — bump `version` after editing to trigger updates for existing users | Adding/changing questions in premium packs |
+| `DemoQuestions.swift` | Same as above but for the free Starter pack | Adding/changing free questions |
 
 ## Getting Started
 

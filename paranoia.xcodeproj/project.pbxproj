@@ -15,6 +15,7 @@
 		AA000002000000000000001F /* QuestionPack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000001F /* QuestionPack.swift */; };
 		AA000002000000000000002A /* Round.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000002A /* Round.swift */; };
 		AA000002000000000000002B /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000002B /* HapticManager.swift */; };
+		AA000002000000000000006A /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000006A /* Theme.swift */; };
 		AA000002000000000000002C /* CoinFlipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000002C /* CoinFlipView.swift */; };
 		AA000002000000000000002D /* GameSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000002D /* GameSummaryView.swift */; };
 		AA000002000000000000002E /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000002E /* GameView.swift */; };
@@ -40,6 +41,7 @@
 		AA000001000000000000001F /* QuestionPack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionPack.swift; sourceTree = "<group>"; };
 		AA000001000000000000002A /* Round.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Round.swift; sourceTree = "<group>"; };
 		AA000001000000000000002B /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
+		AA000001000000000000006A /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		AA000001000000000000002C /* CoinFlipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinFlipView.swift; sourceTree = "<group>"; };
 		AA000001000000000000002D /* GameSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSummaryView.swift; sourceTree = "<group>"; };
 		AA000001000000000000002E /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				AA000001000000000000002B /* HapticManager.swift */,
+				AA000001000000000000006A /* Theme.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -249,6 +252,7 @@
 				AA000002000000000000004A /* StoreManager.swift in Sources */,
 				AA000002000000000000004B /* PackPurchaseView.swift in Sources */,
 				AA000002000000000000004D /* DemoQuestions.swift in Sources */,
+				AA000002000000000000006A /* Theme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
