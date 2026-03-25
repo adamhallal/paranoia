@@ -6,7 +6,6 @@ struct PackPurchaseView: View {
     @Environment(StoreManager.self) private var storeManager
     @Environment(\.dismiss) private var dismiss
 
-    @State private var isPurchasing = false
     @State private var errorMessage: String?
     @State private var showSuccess = false
 
@@ -41,7 +40,7 @@ struct PackPurchaseView: View {
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 32)
 
-                Text("\(Theme.premiumQuestionsPerSession) random questions per session from a pool of 20")
+                Text("\(Theme.premiumQuestionsPerSession) random questions per session from a pool of \(pack.questions.count)")
                     .font(.subheadline)
                     .foregroundColor(.gray)
 
@@ -71,7 +70,7 @@ struct PackPurchaseView: View {
                         Task { await purchasePack(product) }
                     } label: {
                         HStack {
-                            if isPurchasing {
+                            if storeManager.purchaseInProgress {
                                 ProgressView()
                                     .tint(.white)
                             } else {
@@ -82,8 +81,12 @@ struct PackPurchaseView: View {
                         }
                         .primaryButtonStyle()
                     }
-                    .disabled(isPurchasing)
+                    .disabled(storeManager.purchaseInProgress)
                     .padding(.horizontal, 32)
+                } else if storeManager.products.isEmpty {
+                    ProgressView("Loading…")
+                        .tint(.white)
+                        .foregroundColor(.gray)
                 } else {
                     Text("Product not available")
                         .foregroundColor(.red)
@@ -99,7 +102,6 @@ struct PackPurchaseView: View {
     }
 
     private func purchasePack(_ product: Product) async {
-        isPurchasing = true
         errorMessage = nil
         showSuccess = false
 
@@ -111,7 +113,5 @@ struct PackPurchaseView: View {
         } catch {
             errorMessage = error.localizedDescription
         }
-
-        isPurchasing = false
     }
 }

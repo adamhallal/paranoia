@@ -26,9 +26,8 @@ A party game for iPhone built with SwiftUI. Based on the classic **Paranoia** dr
 - **Coin flip animation** — 3D rotation with haptic feedback
 - **Question Packs**:
   - **Starter** (Free) — 10 demo questions to get started
-  - **Spicy** ($2.99/session) — flirting, exes, and juicy confessions (10 random from 20)
-  - **Party** ($2.99/session) — embarrassing moments and hilarious callouts (10 random from 20)
-  - **Same Side** ($2.99/session) — all boys or all girls only, calling people out (10 random from 20)
+  - **Spicy** ($2.99/session) — flirting, exes, and juicy confessions
+  - **Party** ($2.99/session) — embarrassing moments and hilarious callouts
 - **In-App Purchases** — buy play sessions for premium packs via StoreKit 2
 - **Exit anytime** — leave a game mid-round with a clear warning about losing progress
 - **Suggest Questions** — users can suggest new questions or packs from the Question Packs screen
@@ -74,7 +73,7 @@ paranoia/
 │   ├── StoreManager.swift         # StoreKit 2 IAP, credit system (UserDefaults), transaction listener
 │   └── PackPurchaseView.swift     # Purchase sheet for a single premium pack
 ├── Data/
-│   ├── DefaultQuestions.swift     # Premium pack definitions (Party, Spicy, Same Side)
+│   ├── DefaultQuestions.swift     # Premium pack definitions (Party, Spicy)
 │   └── DemoQuestions.swift        # Free Starter pack definition
 ├── Configuration/
 │   └── ParanoiaProducts.storekit  # StoreKit testing configuration
@@ -90,7 +89,7 @@ paranoia/
 | `ParanoiaApp.swift` | Creates the SwiftData container, auto-inserts/updates packs on launch | Adding new models or changing pack seeding logic |
 | `GameSession.swift` | Holds all runtime game state — player rotation, question queue, round history | Changing game rules (e.g. turn order, win conditions) |
 | `QuestionPack.swift` | SwiftData model with `packDescription` and `detailedDescription` computed properties | Adding pack metadata or changing the data schema |
-| `Theme.swift` | `PrimaryButtonStyle` modifier, `SectionHeader` view, `primaryGradient`, and constants (`questionsPerSession`, `maxNameLength`) | Changing app-wide styling or shared constants |
+| `Theme.swift` | `PrimaryButtonStyle` modifier, `SectionHeader` view, `primaryGradient`, and constants (`premiumQuestionsPerSession`, `maxNameLength`) | Changing app-wide styling or shared constants |
 | `StoreManager.swift` | Manages products, purchases, and a per-pack credit system stored in UserDefaults | Changing pricing, credit logic, or adding new IAP products |
 | `DefaultQuestions.swift` | Where premium pack questions live — bump `version` after editing to trigger updates for existing users | Adding/changing questions in premium packs |
 | `DemoQuestions.swift` | Same as above but for the free Starter pack | Adding/changing free questions |
@@ -110,7 +109,7 @@ paranoia/
    cd paranoia
    ```
 
-2. Open `Paranoia.xcodeproj` in Xcode
+2. Open `paranoia.xcodeproj` in Xcode
 
 3. Build and run on an iPhone simulator or device (iOS 17+) with **Cmd+R**
 

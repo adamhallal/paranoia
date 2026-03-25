@@ -33,21 +33,6 @@
       "productID" : "com.paranoia.pack.party",
       "referenceName" : "Party Pack Session",
       "type" : "Consumable"
-    },
-    {
-      "displayPrice" : "2.99",
-      "familyShareable" : false,
-      "internalID" : "1004",
-      "localizations" : [
-        {
-          "description" : "Unlock 1 play session of 10 random Same Side questions",
-          "displayName" : "Same Side Pack Session",
-          "locale" : "en_US"
-        }
-      ],
-      "productID" : "com.paranoia.pack.sameside",
-      "referenceName" : "Same Side Pack Session",
-      "type" : "Consumable"
     }
   ],
   "settings" : {

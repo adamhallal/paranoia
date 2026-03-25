@@ -4,14 +4,12 @@ import StoreKit
 enum StoreProducts {
     static let spicyPack = "com.paranoia.pack.spicy"
     static let partyPack = "com.paranoia.pack.party"
-    static let sameSidePack = "com.paranoia.pack.sameside"
-    static let allProductIDs: Set<String> = [spicyPack, partyPack, sameSidePack]
+    static let allProductIDs: Set<String> = [spicyPack, partyPack]
 
     static func productID(for packName: String) -> String? {
         switch packName.lowercased() {
         case "spicy": return spicyPack
         case "party": return partyPack
-        case "same side": return sameSidePack
         default: return nil
         }
     }
@@ -23,7 +21,7 @@ class StoreManager {
     private(set) var products: [Product] = []
     private(set) var purchaseInProgress = false
     private(set) var creditStore: [String: Int] = [:]
-    nonisolated(unsafe) private var transactionListener: Task<Void, Never>?
+    private var transactionListener: Task<Void, Never>?
 
     init() {
         for id in StoreProducts.allProductIDs {
@@ -107,13 +105,12 @@ class StoreManager {
     // MARK: - Private
 
     private func listenForTransactions() -> Task<Void, Never> {
-        Task.detached { [weak self] in
+        Task {
             for await result in Transaction.updates {
-                let transaction = result.unsafePayloadValue
-                if case .verified(let verified) = result {
-                    await self?.handleTransaction(verified)
+                if case .verified(let transaction) = result {
+                    await self.handleTransaction(transaction)
+                    await transaction.finish()
                 }
-                await transaction.finish()
             }
         }
     }
