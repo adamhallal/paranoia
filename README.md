@@ -26,13 +26,13 @@ A party game for iPhone built with SwiftUI. Based on the classic **Paranoia** dr
 - **Coin flip animation** — 3D rotation with haptic feedback
 - **Question Packs**:
   - **Starter** (Free) — 10 demo questions to get started
-  - **Spicy** ($2.99/session) — flirting, exes, and juicy confessions
-  - **Party** ($2.99/session) — embarrassing moments and hilarious callouts
+  - **Spicy** ($2.99/session) — 53 questions: crushes, hookups, and things you probably shouldn't say out loud
+  - **Party** ($2.99/session) — 43 questions: savage callouts, hot takes, and brutally honest opinions
 - **In-App Purchases** — buy play sessions for premium packs via StoreKit 2
 - **Exit anytime** — leave a game mid-round with a clear warning about losing progress
 - **Suggest Questions** — users can suggest new questions or packs from the Question Packs screen
 - **Game summary** — end-of-game recap showing revealed vs. secret questions
-- **Auto-updating packs** — question pack content updates automatically when a new version is available
+- **Auto-updating packs** — question pack content updates automatically when a new version is available, and removed packs are cleaned up on launch
 - **Dark mode UI** — purple/pink gradient theme designed for evening hangouts
 
 ## Tech Stack
@@ -86,7 +86,7 @@ paranoia/
 
 | File | What it does | When you'd edit it |
 |------|-------------|-------------------|
-| `ParanoiaApp.swift` | Creates the SwiftData container, auto-inserts/updates packs on launch | Adding new models or changing pack seeding logic |
+| `ParanoiaApp.swift` | Creates the SwiftData container, auto-inserts/updates/removes packs on launch | Adding new models or changing pack seeding logic |
 | `GameSession.swift` | Holds all runtime game state — player rotation, question queue, round history | Changing game rules (e.g. turn order, win conditions) |
 | `QuestionPack.swift` | SwiftData model with `packDescription` and `detailedDescription` computed properties | Adding pack metadata or changing the data schema |
 | `Theme.swift` | `PrimaryButtonStyle` modifier, `SectionHeader` view, `primaryGradient`, and constants (`premiumQuestionsPerSession`, `maxNameLength`) | Changing app-wide styling or shared constants |
@@ -157,7 +157,7 @@ Each question pack has a `version` number. To update a pack's content:
 1. Edit the questions in `DemoQuestions.swift` (Starter) or `DefaultQuestions.swift` (premium packs)
 2. Bump the `version` parameter on that pack (e.g., `version: 2` → `version: 3`)
 
-On next launch, the app compares each bundled pack's version against the stored version. If the bundled version is higher, the old questions are replaced with the new ones automatically.
+On next launch, the app compares each bundled pack's version against the stored version. If the bundled version is higher, the old questions are replaced with the new ones automatically. Any packs that are no longer in the bundled list are deleted from the user's database.
 
 ## License
 

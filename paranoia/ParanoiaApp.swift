@@ -28,6 +28,11 @@ struct ParanoiaApp: App {
                 }
             }
 
+            let freshNames = Set(freshPacks.map { $0.name })
+            for existing in existingPacks where !freshNames.contains(existing.name) {
+                context.delete(existing)
+            }
+
             do {
                 try context.save()
             } catch {
