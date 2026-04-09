@@ -173,7 +173,7 @@ Before submitting to the App Store, complete these steps:
   - Frequent/Intense Profanity or Crude Humor
   - Infrequent/Mild Alcohol, Tobacco, or Drug Use or References
 - [ ] **Screenshots must be 4+ appropriate** — only show Starter Pack questions, coin flip, or player setup in screenshots (never Spicy/Party pack content, even though the app is rated 17+)
-- [ ] **Host privacy policy online** — the in-app link points to `https://adamhallal.github.io/paranoia/privacy` — host the contents of `PRIVACY_POLICY.md` at that URL
+- [ ] **Enable GitHub Pages** — go to repo Settings → Pages, set source to "Deploy from a branch", branch `master`, folder `/docs`. The privacy policy HTML is already at `docs/privacy/index.html` and will be served at `https://adamhallal.github.io/paranoia/privacy`
 - [ ] **Add Privacy Policy URL** in App Store Connect metadata
 - [ ] **Write App Store description** — emphasise what makes the app unique (coin-flip reveal mechanic, pass-the-phone format, no accounts/wifi needed) since party games get extra scrutiny as a saturated category
 - [ ] **Add subtitle, keywords, and category** in App Store Connect
