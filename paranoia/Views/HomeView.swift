@@ -52,7 +52,11 @@ struct HomeView: View {
                         }
                     }
                     .padding(.horizontal, 32)
-                    .padding(.bottom, 60)
+
+                    Link("Privacy Policy", destination: URL(string: "https://adamhallal.github.io/paranoia/privacy")!)
+                        .font(.caption)
+                        .foregroundColor(.gray.opacity(0.6))
+                        .padding(.bottom, 24)
                 }
             }
             .navigationDestination(isPresented: $showPlayerSetup) {

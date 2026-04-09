@@ -3,16 +3,16 @@ import Foundation
 struct DemoQuestions {
     static func starterPack() -> QuestionPack {
         QuestionPack(name: "Starter", questions: [
-            Question(text: "Who is most likely to laugh at the worst possible moment?"),
-            Question(text: "Who would survive the longest in a horror movie?"),
-            Question(text: "Who gives the best hugs?"),
-            Question(text: "Who is the biggest lightweight?"),
+            Question(text: "Who here is the worst liar?"),
+            Question(text: "Who would be the first to get kicked out of a party?"),
+            Question(text: "Who has the biggest ego in this room?"),
+            Question(text: "Who is most likely to say something they regret?"),
+            Question(text: "Who would you least want to share a secret with?"),
+            Question(text: "Who is most likely to start drama for no reason?"),
             Question(text: "Who has the most contagious laugh?"),
-            Question(text: "Who would be the worst at keeping a surprise party secret?"),
-            Question(text: "Who is most likely to trip over nothing?"),
-            Question(text: "Who has the best dance moves?"),
-            Question(text: "Who would be the first to cry during a sad movie?"),
-            Question(text: "Who is the most likely to forget someone's name right after meeting them?"),
-        ], version: 2)
+            Question(text: "Who here thinks they're funnier than they actually are?"),
+            Question(text: "Who here would you not trust with your phone for 5 minutes?"),
+            Question(text: "Who is most likely to have a crush on someone in this room?"),
+        ], version: 1)
     }
 }

@@ -26,8 +26,8 @@ A party game for iPhone built with SwiftUI. Based on the classic **Paranoia** dr
 - **Coin flip animation** — 3D rotation with haptic feedback
 - **Question Packs**:
   - **Starter** (Free) — 10 demo questions to get started
-  - **Spicy** ($2.99/session) — 53 questions: crushes, hookups, and things you probably shouldn't say out loud
-  - **Party** ($2.99/session) — 43 questions: savage callouts, hot takes, and brutally honest opinions
+  - **Spicy** ($2.99/session) — 50 questions (10 randomly selected per session): crushes, hookups, and things you probably shouldn't say out loud
+  - **Party** ($2.99/session) — 50 questions (10 randomly selected per session): savage callouts, hot takes, and brutally honest opinions
 - **In-App Purchases** — buy play sessions for premium packs via StoreKit 2
 - **Exit anytime** — leave a game mid-round with a clear warning about losing progress
 - **Suggest Questions** — users can suggest new questions or packs from the Question Packs screen
@@ -158,6 +158,28 @@ Each question pack has a `version` number. To update a pack's content:
 2. Bump the `version` parameter on that pack (e.g., `version: 2` → `version: 3`)
 
 On next launch, the app compares each bundled pack's version against the stored version. If the bundled version is higher, the old questions are replaced with the new ones automatically. Any packs that are no longer in the bundled list are deleted from the user's database.
+
+## App Store Submission Checklist
+
+Before submitting to the App Store, complete these steps:
+
+- [ ] **Replace placeholder app icon** — replace `Assets.xcassets/AppIcon.appiconset/AppIcon.png` with a designed 1024x1024 PNG (no alpha, no rounded corners)
+- [ ] **Set Team** in Xcode → Signing & Capabilities
+- [ ] **Register app** in App Store Connect
+- [ ] **Create IAP products** in App Store Connect matching `com.paranoia.pack.spicy` and `com.paranoia.pack.party` (consumable, $2.99 each)
+- [ ] **Rate the app 17+** — answer the age rating questionnaire honestly:
+  - Frequent/Intense Sexual Content and Nudity
+  - Frequent/Intense Mature/Suggestive Themes
+  - Frequent/Intense Profanity or Crude Humor
+  - Infrequent/Mild Alcohol, Tobacco, or Drug Use or References
+- [ ] **Screenshots must be 4+ appropriate** — only show Starter Pack questions, coin flip, or player setup in screenshots (never Spicy/Party pack content, even though the app is rated 17+)
+- [ ] **Host privacy policy online** — the in-app link points to `https://adamhallal.github.io/paranoia/privacy` — host the contents of `PRIVACY_POLICY.md` at that URL
+- [ ] **Add Privacy Policy URL** in App Store Connect metadata
+- [ ] **Write App Store description** — emphasise what makes the app unique (coin-flip reveal mechanic, pass-the-phone format, no accounts/wifi needed) since party games get extra scrutiny as a saturated category
+- [ ] **Add subtitle, keywords, and category** in App Store Connect
+- [ ] **Enrol in the App Store Small Business Program** — reduces Apple's commission from 30% to 15% on all IAP revenue (eligible if you earn under $1M/year). Apply at [developer.apple.com/app-store/small-business-program](https://developer.apple.com/app-store/small-business-program/)
+- [ ] **Archive & upload build** via Xcode Organizer
+- [ ] **Submit for review**
 
 ## License
 
