@@ -175,8 +175,11 @@ Before submitting to the App Store, complete these steps:
 - [ ] **Screenshots must be 4+ appropriate** — only show Starter Pack questions, coin flip, or player setup in screenshots (never Spicy/Party pack content, even though the app is rated 17+)
 - [ ] **Enable GitHub Pages** — go to repo Settings → Pages, set source to "Deploy from a branch", branch `master`, folder `/docs`. The privacy policy HTML is already at `docs/privacy/index.html` and will be served at `https://adamhallal.github.io/paranoia/privacy`
 - [ ] **Add Privacy Policy URL** in App Store Connect metadata
+- [ ] **Add Support URL** in App Store Connect metadata (required per Guideline 1.5) — point to `https://adamhallal.github.io/paranoia/` or a dedicated support page
 - [ ] **Write App Store description** — emphasise what makes the app unique (coin-flip reveal mechanic, pass-the-phone format, no accounts/wifi needed) since party games get extra scrutiny as a saturated category
 - [ ] **Add subtitle, keywords, and category** in App Store Connect
+- [ ] **Record app preview video** (optional but recommended) — 15–30 sec clip of the coin-flip mechanic sells the game better than static screenshots for a party title
+- [ ] **Verify Suggest Questions mailto** opens Mail composer to support@jnoon.app (replace with a real Google Form later if you want structured submissions)
 - [ ] **Enrol in the App Store Small Business Program** — reduces Apple's commission from 30% to 15% on all IAP revenue (eligible if you earn under $1M/year). Apply at [developer.apple.com/app-store/small-business-program](https://developer.apple.com/app-store/small-business-program/)
 - [ ] **Archive & upload build** via Xcode Organizer
 - [ ] **Submit for review**

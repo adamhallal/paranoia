@@ -88,7 +88,7 @@ struct QuestionPackManagerView: View {
         .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 
-    private static let suggestionsURL = URL(string: "https://forms.gle/paranoia-suggestions")!
+    private static let suggestionsURL = URL(string: "mailto:support@jnoon.app?subject=Paranoia%20Question%20Suggestion")!
 
     private func suggestionCard() -> some View {
         Link(destination: Self.suggestionsURL) {

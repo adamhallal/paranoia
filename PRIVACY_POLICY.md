@@ -47,4 +47,4 @@ If we update this policy, the changes will be reflected on this page with an upd
 
 ## Contact
 
-If you have questions about this privacy policy, contact us at: adamtwisterz@gmail.com
+If you have questions about this privacy policy, contact us at: support@jnoon.app
