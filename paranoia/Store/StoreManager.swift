@@ -22,11 +22,16 @@ class StoreManager {
     private(set) var purchaseInProgress = false
     private(set) var creditStore: [String: Int] = [:]
     private var transactionListener: Task<Void, Never>?
+    private var processedTransactionIDs: Set<UInt64>
+
+    private static let processedTxKey = "processed_transaction_ids"
 
     init() {
         for id in StoreProducts.allProductIDs {
             creditStore[id] = UserDefaults.standard.integer(forKey: Self.creditKey(for: id))
         }
+        let stored = UserDefaults.standard.array(forKey: Self.processedTxKey) as? [NSNumber] ?? []
+        processedTransactionIDs = Set(stored.map { $0.uint64Value })
         transactionListener = listenForTransactions()
         Task { await loadProducts() }
     }
@@ -116,9 +121,14 @@ class StoreManager {
     }
 
     private func handleTransaction(_ transaction: Transaction) async {
-        if StoreProducts.allProductIDs.contains(transaction.productID) {
-            addCredits(for: transaction.productID)
-        }
+        guard StoreProducts.allProductIDs.contains(transaction.productID) else { return }
+        guard !processedTransactionIDs.contains(transaction.id) else { return }
+        processedTransactionIDs.insert(transaction.id)
+        UserDefaults.standard.set(
+            processedTransactionIDs.map { NSNumber(value: $0) },
+            forKey: Self.processedTxKey
+        )
+        addCredits(for: transaction.productID)
     }
 
     private func checkVerified<T>(_ result: VerificationResult<T>) throws -> T {

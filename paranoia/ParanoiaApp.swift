@@ -14,23 +14,21 @@ struct ParanoiaApp: App {
             let existingPacks = (try? context.fetch(descriptor)) ?? []
 
             let freshPacks = [DemoQuestions.starterPack()] + DefaultQuestions.allPacks()
+            let freshNames = Set(freshPacks.map { $0.name })
+
+            for existing in existingPacks where !freshNames.contains(existing.name) {
+                context.delete(existing)
+            }
+
             for freshPack in freshPacks {
                 if let existing = existingPacks.first(where: { $0.name == freshPack.name }) {
                     if existing.version < freshPack.version {
-                        for question in existing.questions {
-                            context.delete(question)
-                        }
-                        existing.questions = freshPack.questions
-                        existing.version = freshPack.version
+                        context.delete(existing)
+                        context.insert(freshPack)
                     }
                 } else {
                     context.insert(freshPack)
                 }
-            }
-
-            let freshNames = Set(freshPacks.map { $0.name })
-            for existing in existingPacks where !freshNames.contains(existing.name) {
-                context.delete(existing)
             }
 
             do {

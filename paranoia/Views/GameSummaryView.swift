@@ -19,9 +19,7 @@ struct GameSummaryView: View {
             VStack(spacing: 24) {
                 Text("Game Over!")
                     .font(.system(size: 36, weight: .black, design: .rounded))
-                    .foregroundStyle(
-                        LinearGradient(colors: [.purple, .pink], startPoint: .leading, endPoint: .trailing)
-                    )
+                    .foregroundStyle(Theme.primaryGradient)
                     .padding(.top, 40)
 
                 Text("\(rounds.count) rounds played")

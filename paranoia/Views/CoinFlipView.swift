@@ -78,7 +78,7 @@ struct CoinFlipView: View {
             rotation = 1080 + (isHeads ? 0 : 180)
         }
 
-        flipTask = Task {
+        flipTask = Task { @MainActor in
             try? await Task.sleep(for: .milliseconds(1200))
             guard !Task.isCancelled else { return }
 

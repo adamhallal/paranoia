@@ -1,6 +1,7 @@
 import UIKit
 
-struct HapticManager {
+@MainActor
+enum HapticManager {
     private static let heavyGenerator = UIImpactFeedbackGenerator(style: .heavy)
     private static let lightGenerator = UIImpactFeedbackGenerator(style: .light)
 

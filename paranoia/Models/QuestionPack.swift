@@ -37,4 +37,13 @@ class QuestionPack {
         default: return ""
         }
     }
+
+    static func freePacks(from packs: [QuestionPack]) -> [QuestionPack] {
+        packs.filter { !$0.isPremium && !$0.questions.isEmpty }
+    }
+
+    static func premiumPacks(from packs: [QuestionPack]) -> [QuestionPack] {
+        packs.filter { $0.isPremium && !$0.questions.isEmpty }
+            .sorted { (premiumOrder.firstIndex(of: $0.name) ?? .max) < (premiumOrder.firstIndex(of: $1.name) ?? .max) }
+    }
 }

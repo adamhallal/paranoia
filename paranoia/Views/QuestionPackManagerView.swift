@@ -6,14 +6,8 @@ struct QuestionPackManagerView: View {
     @Query private var packs: [QuestionPack]
     @State private var purchasePack: QuestionPack?
 
-    private var freePacks: [QuestionPack] {
-        packs.filter { !$0.isPremium && !$0.questions.isEmpty }
-    }
-
-    private var premiumPacks: [QuestionPack] {
-        packs.filter { $0.isPremium }
-            .sorted { QuestionPack.premiumOrder.firstIndex(of: $0.name) ?? 99 < QuestionPack.premiumOrder.firstIndex(of: $1.name) ?? 99 }
-    }
+    private var freePacks: [QuestionPack] { QuestionPack.freePacks(from: packs) }
+    private var premiumPacks: [QuestionPack] { QuestionPack.premiumPacks(from: packs) }
 
     var body: some View {
         ZStack {

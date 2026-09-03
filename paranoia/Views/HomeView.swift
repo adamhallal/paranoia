@@ -16,13 +16,7 @@ struct HomeView: View {
                     VStack(spacing: 8) {
                         Text("PARANOIA")
                             .font(.system(size: 48, weight: .black, design: .rounded))
-                            .foregroundStyle(
-                                LinearGradient(
-                                    colors: [.purple, .pink],
-                                    startPoint: .leading,
-                                    endPoint: .trailing
-                                )
-                            )
+                            .foregroundStyle(Theme.primaryGradient)
 
                         Text("What did they say about you?")
                             .font(.subheadline)

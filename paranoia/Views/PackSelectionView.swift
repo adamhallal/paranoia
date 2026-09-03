@@ -12,14 +12,8 @@ struct PackSelectionView: View {
     @State private var lastPurchasePack: QuestionPack?
     @State private var showCreditsAlert = false
 
-    private var freePacks: [QuestionPack] {
-        allPacks.filter { !$0.isPremium && !$0.questions.isEmpty }
-    }
-
-    private var premiumPacks: [QuestionPack] {
-        allPacks.filter { $0.isPremium && !$0.questions.isEmpty }
-            .sorted { QuestionPack.premiumOrder.firstIndex(of: $0.name) ?? 99 < QuestionPack.premiumOrder.firstIndex(of: $1.name) ?? 99 }
-    }
+    private var freePacks: [QuestionPack] { QuestionPack.freePacks(from: allPacks) }
+    private var premiumPacks: [QuestionPack] { QuestionPack.premiumPacks(from: allPacks) }
 
     private var canStart: Bool {
         selectedPackID != nil

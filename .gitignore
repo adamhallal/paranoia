@@ -11,3 +11,6 @@ DerivedData/
 
 # OS
 .DS_Store
+
+# Tooling
+.claude/
